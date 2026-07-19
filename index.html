@@ -1,533 +1,112 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تلفاز العرب الذكي - مشغل IPTV الاحترافي</title>
-  
-  <!-- خط Cairo الأنيق وخط JetBrains Mono للبيانات -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
-  <!-- مكتبة تشغيل البث المباشر HLS -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  
-  <!-- مكتبة Tailwind CSS للتصميم العصري -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d14">
+<title>KiKON Tv</title>
+<style>
+:root{--top:64px;--bg:#070b12;--panel:#101827;--panel2:#0b111c;--line:#25344d;--text:#eef4ff;--muted:#91a1ba;--gold:#f5a524;--red:#ef4444;--green:#22c55e;--shadow:0 14px 34px rgba(0,0,0,.32)}
+*{box-sizing:border-box}html,body,#app{height:100%;margin:0}body{font-family:Tahoma,"Noto Kufi Arabic","Noto Naskh Arabic",sans-serif;background:#070b12;color:#eef4ff;overflow:hidden;-webkit-tap-highlight-color:transparent}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{height:100vh;display:flex;flex-direction:column;overflow:hidden;background:radial-gradient(circle at 78% -12%,rgba(245,165,36,.18),transparent 28%),linear-gradient(145deg,#05070c,#0d1420 55%,#070b12)}@supports(height:100dvh){.app{height:100dvh}}
+.top{height:var(--top);flex:0 0 var(--top);display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(7,11,18,.93);gap:10px}.brand{display:flex;align-items:center;gap:10px;min-width:0}.mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(135deg,#f97316,#facc15);display:grid;place-items:center;color:#111;font-weight:900}.title{line-height:1.1;min-width:0}.title b{font-size:17px;white-space:nowrap}.title small{display:block;color:#91a1ba;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.actions{display:flex;gap:8px;align-items:center;flex:0 0 auto}.btn{border:1px solid #25344d;background:#131c2b;color:#eef4ff;padding:9px 12px;border-radius:13px;min-height:40px}.btn.primary{background:linear-gradient(135deg,#f97316,#f5a524);border:0;color:#14100b;font-weight:800}.btn.ghost{background:transparent}.btn.danger{border-color:rgba(239,68,68,.4);color:#fecaca}.btn.ok{border-color:rgba(34,197,94,.4);color:#bbf7d0}.btn:focus,.cat:focus,.chan:focus,.search:focus{outline:3px solid rgba(245,165,36,.7);outline-offset:2px}
+.main{height:calc(100vh - var(--top));flex:1 1 auto;min-height:0;display:flex;direction:ltr;gap:12px;padding:12px;overflow:hidden}.main>*{direction:rtl}.panel{background:linear-gradient(180deg,rgba(16,24,39,.97),rgba(11,17,28,.97));border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.side{display:flex;flex-direction:column;min-height:0;height:100%}.right{order:1;flex:0 0 330px;width:330px}.stage{order:2;flex:1 1 auto;min-width:300px;min-height:0;display:flex;flex-direction:column;gap:10px;overflow:hidden}.left{order:3;flex:0 0 285px;width:285px}.sideHead{padding:12px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;gap:8px;flex:0 0 auto}.search{width:100%;border:1px solid #25344d;background:#070b12;color:#eef4ff;border-radius:12px;padding:10px 12px;outline:0}.list{overflow:auto;padding:10px;min-height:0;flex:1 1 auto;overscroll-behavior:contain;scrollbar-width:thin}.list::-webkit-scrollbar{width:8px}.list::-webkit-scrollbar-thumb{background:#25344d;border-radius:99px}.cat,.chan{width:100%;text-align:right;border:1px solid transparent;background:transparent;color:#91a1ba;border-radius:13px;padding:10px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px}.cat.active,.chan.active{background:linear-gradient(135deg,rgba(245,165,36,.16),rgba(56,189,248,.05));border-color:rgba(245,165,36,.56);color:#fff;box-shadow:inset 3px 0 0 #f5a524}.cat:hover,.chan:hover{background:rgba(255,255,255,.06);color:#fff}.badge{font-size:11px;border-radius:99px;padding:3px 8px;background:#0a101a;color:#b7c5dc;border:1px solid rgba(255,255,255,.06)}.chan{padding:8px}.chanMain{display:flex;gap:9px;align-items:center;min-width:0}.logo{width:42px;height:42px;border-radius:12px;object-fit:cover;background:#0a101a;border:1px solid rgba(255,255,255,.08);flex:0 0 auto}.fallbackLogo{display:grid;place-items:center;color:#f5a524;font-weight:800}.chanText{min-width:0}.chanName{display:block;font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:215px}.chanMeta{display:block;font-size:10px;color:#7f8ea8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:215px}
+.videoBox{position:relative;background:#000;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:var(--shadow);height:42vh;min-height:235px;max-height:52vh;flex:0 0 auto}.videoBox video{width:100%;height:100%;display:block;object-fit:contain;background:#000;filter:brightness(100%)}.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;background:radial-gradient(circle at center,rgba(245,165,36,.12),transparent 34%),#030507}.empty h2{margin:0 0 8px;font-size:24px}.empty p{margin:0;color:#91a1ba;font-size:13px}.live{position:absolute;top:12px;right:12px;background:rgba(220,38,38,.92);border-radius:99px;padding:5px 10px;font-size:11px;font-weight:900}.infoBar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;flex:0 0 auto}.now{display:flex;align-items:center;gap:10px;min-width:0}.nowTitle{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nowGroup{font-size:11px;color:#f5a524;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.screenSettings{padding:10px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;align-items:end;flex:0 0 auto}.screenSettings label{display:grid;gap:5px;font-size:10px;color:#91a1ba;font-weight:700}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex:0 0 auto}.stat{padding:10px 12px;border-radius:16px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.06)}.stat b{display:block;font-size:19px}.stat span{font-size:11px;color:#91a1ba}.scan{padding:12px;display:none;flex:0 0 auto}.scan.show{display:block}.bar{height:7px;border-radius:99px;background:#07101d;overflow:hidden;border:1px solid rgba(255,255,255,.06)}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22c55e,#f5a524);transition:width .25s}.hint{padding:11px;color:#91a1ba;font-size:12px;line-height:1.6;overflow:auto;min-height:0}.groupDrop{display:none;flex:0 0 auto;padding:8px}.mobileGroupTitle{font-size:12px;font-weight:900;color:#fff;margin-bottom:7px}.dropList{display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;padding-bottom:2px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.dropList .cat{width:auto;min-width:max-content;white-space:nowrap;margin:0;padding:8px 11px;min-height:36px;flex:0 0 auto}.mobileNav{display:none}.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:12px}.modal.show{display:flex}.dialog{width:min(760px,100%);max-height:90vh;overflow:auto;background:#101827;border:1px solid rgba(255,255,255,.1);border-radius:22px;box-shadow:0 20px 70px rgba(0,0,0,.5)}.dialogHead,.dialogFoot{padding:14px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}.dialogFoot{border-top:1px solid rgba(255,255,255,.08);border-bottom:0}.dialogBody{padding:14px}.textarea{width:100%;height:220px;resize:vertical;border:1px solid #25344d;background:#070b12;color:#dbeafe;border-radius:14px;padding:12px;direction:ltr;text-align:left;outline:0;font-family:monospace;font-size:12px}.toast{position:fixed;bottom:14px;right:14px;z-index:70;display:flex;flex-direction:column;gap:8px;max-width:min(420px,calc(100vw - 28px))}.toast div{background:#121c2c;border:1px solid #25344d;padding:12px 14px;border-radius:14px;box-shadow:var(--shadow);font-size:13px}.toast .ok{border-color:rgba(34,197,94,.4)}.toast .bad{border-color:rgba(239,68,68,.45)}.hidden{display:none!important}
+@media(max-width:1180px){.main{gap:8px;padding:8px}.right{flex-basis:275px;width:275px}.left{flex-basis:235px;width:235px}.chanName,.chanMeta{max-width:165px}.screenSettings{grid-template-columns:repeat(2,minmax(0,1fr))}.videoBox{height:36vh}.hint{display:none}.title small{display:none}}
+@media(max-width:900px){:root{--top:58px}.top{padding:8px}.mark{width:38px;height:38px;border-radius:13px}.title b{font-size:15px}.actions .hideSm{display:none}.btn{min-height:38px;padding:8px 10px}.main{height:calc(100vh - var(--top));display:flex;flex-direction:column;direction:rtl;gap:7px;padding:7px;overflow:hidden}.left{display:none}.stage{order:1;flex:0 0 auto;min-width:0;gap:7px;overflow:visible}.right{order:2;display:flex;flex:1 1 auto;width:auto;min-height:150px}.groupDrop{display:block;overflow:hidden}.videoBox{height:24vh;min-height:140px;max-height:210px;border-radius:16px}.empty h2{font-size:18px}.empty p{font-size:11px}.infoBar{display:block;padding:9px}.controls{justify-content:stretch;margin-top:8px}.controls .btn{flex:1;font-size:12px}.screenSettings{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px}.stats{grid-template-columns:repeat(4,1fr);gap:5px}.stat{padding:7px}.stat b{font-size:15px}.stat span{font-size:9px}.sideHead{padding:9px}.list{padding:8px}.chan{min-height:50px}.chanName,.chanMeta{max-width:calc(100vw - 128px)}.toast{bottom:8px;right:8px}.mobileNav{display:none}}
+@media(max-width:420px){.videoBox{height:21vh;min-height:125px}.screenSettings{grid-template-columns:1fr 1fr}.stats{display:none}.top{gap:6px}.brand{gap:7px}.actions{gap:5px}.btn{padding:7px 9px}.chanName,.chanMeta{max-width:calc(100vw - 118px)}}
+@media(max-height:650px) and (max-width:900px){.videoBox{height:125px;min-height:118px}.screenSettings{display:none}.stats{display:none}.groupDrop{padding:6px}.dropList .cat{min-height:32px;padding:6px 9px}.infoBar{padding:7px}.right{min-height:130px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Cairo', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
+@media(max-width:900px){
+  body.show-channels #chanPanel{display:flex!important;position:fixed!important;left:8px;right:8px;bottom:8px;top:auto;height:48vh!important;max-height:430px;z-index:80;border-radius:18px;box-shadow:0 0 0 999px rgba(0,0,0,.55),0 18px 50px rgba(0,0,0,.55)}
+  body.show-channels #chanPanel [data-close]{display:inline-flex!important}
+}
+@media(max-width:420px){body.show-channels #chanPanel{height:54vh!important}}
 
-  <style>
-    /* تخصيص أشرطة التمرير */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #27272a;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #3f3f46;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fadeIn {
-      animation: fadeIn 0.25s ease-out forwards;
-    }
-  </style>
+</style>
 </head>
-<body class="bg-[#07080c] text-zinc-100 font-sans min-h-screen flex flex-col">
-
-  <!-- شريط العنوان الرئيسي -->
-  <header class="border-b border-zinc-900 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 px-4 py-3 lg:px-8 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-emerald-400 flex items-center justify-center text-zinc-950 shadow-lg shadow-emerald-500/20 text-xl font-bold">
-        📺
-      </div>
-      <div>
-        <h1 class="text-sm lg:text-base font-black tracking-tight flex items-center gap-1.5">
-          <span>تلفاز العرب الذكي</span>
-          <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded-full border border-emerald-500/25">IPTV Player</span>
-        </h1>
-        <p class="text-[10px] lg:text-xs text-zinc-500 font-medium">مشغل متطور للبث المباشر مع استرجاع تلقائي للقنوات المعطلة</p>
-      </div>
-    </div>
-    <div class="flex items-center gap-2 text-xs">
-      <div class="bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800 flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-zinc-400">القنوات:</span>
-        <span id="globalChannelCount" class="font-bold font-mono text-zinc-100">0</span>
-      </div>
+<body>
+<div id="app" class="app">
+  <header class="top">
+    <div class="brand" id="brand"><div class="mark">K</div><div class="title"><b>KiKON TV Fast</b><small>نسخة HTML خفيفة للأندرويد القديم والمتصفحات المختلفة</small></div></div>
+    <div class="actions">
+      <button class="btn ghost hideSm" id="privateBtn" title="إظهار/إخفاء الباقة المخفية">قفل</button>
+      <button class="btn hideSm" id="scanBtn">فحص تلقائي</button>
+      <button class="btn hideSm" id="exportBtn">تصدير M3U</button>
+      <button class="btn primary" id="importBtn">إضافة M3U</button>
     </div>
   </header>
-
-  <!-- الجسم الرئيسي للتطبيق -->
-  <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
-    
-    <!-- قسم المشغل (الجهة اليمنى) -->
-    <section class="col-span-1 lg:col-span-7 flex flex-col bg-zinc-950 border-l border-zinc-900/80 sticky top-0 lg:relative z-40">
-      
-      <!-- شاشة الفيديو -->
-      <div class="w-full aspect-video bg-black relative group" id="videoContainer">
-        <video id="videoPlayer" class="w-full h-full object-contain cursor-pointer" controls autoplay playsinline></video>
-        
-        <!-- واجهة الانتظار قبل اختيار القناة -->
-        <div id="playerPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center bg-zinc-950 text-center p-6 z-10">
-          <span class="text-5xl mb-4 animate-pulse">▶</span>
-          <h3 class="text-xl font-bold text-zinc-100">مشغل القنوات الذكي</h3>
-          <p class="text-sm text-zinc-400 max-w-md mt-2">الرجاء اختيار باقة من الأسفل للبدء في تشغيل البث المباشر فوراً.</p>
-        </div>
-
-        <!-- واجهة جاري التحميل -->
-        <div id="playerLoadingOverlay" class="absolute inset-0 hidden flex-col items-center justify-center bg-black/80 backdrop-blur-sm z-20">
-          <div class="w-12 h-12 rounded-full border-4 border-zinc-800 border-t-emerald-400 animate-spin mb-3"></div>
-          <p class="text-emerald-400 font-medium text-sm animate-pulse">جاري جلب البث وتحضير التردد...</p>
-        </div>
-
-        <!-- واجهة حدوث خطأ أو قناة معطلة -->
-        <div id="playerErrorOverlay" class="absolute inset-0 hidden flex-col items-center justify-center bg-zinc-950/95 p-6 text-center z-20 border-2 border-dashed border-red-500/20 m-2 rounded-xl">
-          <span class="text-4xl mb-3 animate-bounce">⚠️</span>
-          <h4 class="text-lg font-bold text-zinc-100">البث غير متاح حالياً</h4>
-          <p id="errorMsgText" class="text-xs text-red-400 font-mono mt-1 bg-red-950/40 px-3 py-1 rounded-full border border-red-900/30">خطأ في الاتصال بالخادم</p>
-          <p class="text-sm text-emerald-400 font-semibold animate-pulse flex items-center gap-1.5 justify-center mt-4">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-            جاري فحص وتخطي القناة تلقائياً للعثور على بث يعمل...
-          </p>
-        </div>
-      </div>
-
-      <!-- لوحة التحكم السفلى والمعلومات -->
-      <div class="p-4 lg:p-6 flex-1 overflow-y-auto space-y-5 bg-gradient-to-b from-zinc-950 to-zinc-900/40">
-        
-        <!-- الباقات الجاهزة والمحدثة تلقائياً -->
-        <div>
-          <span class="text-xs text-zinc-400 font-semibold flex items-center gap-1.5 mb-2">✨ الباقات الجاهزة للتحديث بنقرة واحدة:</span>
-          <div class="flex gap-2.5 overflow-x-auto pb-2" id="presetsContainer"></div>
-        </div>
-
-        <!-- تصنيفات ومجموعات الباقة الحالية -->
-        <div id="groupSelectorSection" class="hidden">
-          <span class="text-xs text-zinc-400 font-semibold flex items-center gap-1.5 mb-2">📂 تصنيفات القائمة النشطة:</span>
-          <div class="flex gap-2 overflow-x-auto pb-2" id="groupsContainer"></div>
-        </div>
-
-        <!-- إشعار الميزات الذكية -->
-        <div class="p-3.5 bg-zinc-900/35 border border-zinc-800 rounded-xl">
-          <h4 class="text-xs font-bold text-zinc-300 flex items-center gap-1.5">💡 نظام المشاهدة المتواصلة (الاسترجاع الذكي):</h4>
-          <p class="text-[11px] text-zinc-500 leading-relaxed mt-1">
-            يقوم هذا المشغل الذكي بمراقبة تدفق البيانات وتخطي أي قناة معطلة أو مشفرة خلال 8 ثوانٍ تلقائياً والانتقال للقناة التالية لضمان تجربة عائلية ممتعة وسلسة خالية من التقطيع.
-          </p>
-        </div>
-
-      </div>
+  <main class="main">
+    <aside class="panel side left" id="catPanel"><div class="sideHead"><b>الباقات / التصنيفات</b><button class="btn ghost hidden" data-close>إغلاق</button></div><div style="padding:10px"><input id="groupSearch" class="search" placeholder="بحث عن باقة"></div><div class="list" id="groups"></div></aside>
+    <section class="stage">
+      <div class="panel groupDrop" id="groupDrop"><div class="mobileGroupTitle" id="currentGroupLabel">الباقات: الكل</div><div class="dropList" id="groupDropList"></div></div>
+      <div class="videoBox" id="videoWrap"><video id="video" playsinline controls preload="none"></video><div class="empty" id="empty"><div><h2>اختر قناة للتشغيل</h2><p>اضغط على أي قناة من قائمة القنوات لتبدأ المشاهدة. القوائم الجانبية تتحرك داخلياً والشاشة تبقى ثابتة.</p></div></div><div class="live hidden" id="liveBadge">LIVE</div></div>
+      <div class="panel infoBar"><div class="now"><div class="logo fallbackLogo" id="nowLogo">TV</div><div style="min-width:0"><div class="nowTitle" id="nowTitle">لا يوجد بث نشط</div><div class="nowGroup" id="nowGroup">اختر من القائمة</div></div></div><div class="controls"><button class="btn ok" id="playBtn">تشغيل</button><button class="btn" id="stopBtn">إيقاف</button><button class="btn" id="favBtn">مفضلة</button><button class="btn" id="fullBtn">ملء الشاشة</button><button class="btn danger" id="delBtn">حذف</button></div></div>
+      <div class="panel screenSettings" id="screenSettings"><label>مقاس الشاشة<select id="ratioMode" class="search"><option value="16/9">16:9 عريض</option><option value="4/3">4:3 قديم</option><option value="21/9">21:9 سينما</option><option value="1/1">مربع</option></select></label><label>طريقة الملاءمة<select id="fitMode" class="search"><option value="contain">بدون قص</option><option value="cover">ملء مع قص</option><option value="fill">تمديد كامل</option></select></label><label>سطوع الصورة<input id="brightness" class="search" type="range" min="70" max="130" value="100"></label><label>تحكم سريع<button class="btn" id="resetScreen" type="button">إعادة الضبط</button></label></div>
+      <div class="stats"><div class="stat"><b id="stTotal">0</b><span>القنوات</span></div><div class="stat"><b id="stGroups">0</b><span>الباقات</span></div><div class="stat"><b id="stOnline">0</b><span>تعمل</span></div><div class="stat"><b id="stHidden">0</b><span>مخفية</span></div></div>
+      <div class="panel scan" id="scanBox"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px"><b id="scanText">جاري الفحص...</b><button class="btn danger" id="cancelScan">إيقاف</button></div><div class="bar"><i id="scanBar"></i></div><div class="hint" id="scanMeta"></div></div>
+      <div class="panel hint">ملاحظات الأداء: تم حذف React وBabel وTailwind لتقليل الحمل، استخدام صور كسولة، عرض محدود للقائمة، ومشغل HLS بذاكرة منخفضة. الفحص التلقائي آمن قدر الإمكان لأن بعض الخوادم تمنع CORS.</div>
     </section>
-
-    <!-- قسم قائمة القنوات والبحث (الجهة اليسرى) -->
-    <section class="col-span-1 lg:col-span-5 h-[500px] lg:h-[calc(100vh-65px)] flex flex-col bg-zinc-950/60 border-t lg:border-t-0 border-zinc-900">
-      
-      <!-- شريط البحث السريع -->
-      <div class="p-3 bg-zinc-950/40 border-b border-zinc-900 flex flex-col gap-2">
-        <input 
-          type="text" 
-          id="searchInput" 
-          placeholder="بحث سريع في أسماء القنوات المتوفرة..." 
-          class="w-full bg-zinc-950 border border-zinc-800 rounded-xl py-2 px-4 text-xs text-zinc-100 outline-none focus:border-emerald-500 transition-all"
-          oninput="filterChannels()"
-        >
-      </div>
-
-      <!-- حاوي القنوات مع ميزة التمرير اللانهائي -->
-      <div class="flex-1 overflow-y-auto p-2 space-y-1.5" id="channelsContainer">
-        <div class="text-center py-12 text-zinc-500">
-          <p class="text-xs font-semibold">الرجاء تحديد أحد الباقات لبدء التحميل...</p>
-        </div>
-      </div>
-    </section>
-
+    <aside class="panel side right" id="chanPanel"><div class="sideHead"><b>القنوات والإذاعات - اضغط للتشغيل</b><button class="btn ghost hidden" data-close>إغلاق</button></div><div style="padding:10px;display:grid;gap:8px"><input id="search" class="search" placeholder="بحث عن قناة أو رابط"><select id="sort" class="search"><option value="default">الترتيب الأصلي</option><option value="az">أبجدي</option><option value="online">العاملة أولاً</option></select></div><div class="list" id="channels"></div><div style="padding:10px"><button class="btn" id="moreBtn" style="width:100%">عرض المزيد</button></div></aside>
   </main>
-
-  <script>
-    // تكوين الباقات الحصرية المختارة (رياضة، أفلام، كبار، أفريقيا، بث عربي)
-    const PRESET_PLAYLISTS = [
-      {
-        id: 'arabic',
-        nameAr: 'البث العربي المباشر',
-        nameEn: 'Arabic Streams',
-        url: 'https://iptv-org.github.io/iptv/languages/ara.m3u',
-        icon: '🌍'
-      },
-      {
-        id: 'movies',
-        nameAr: 'أفلام وسينما',
-        nameEn: 'Movies',
-        url: 'https://iptv-org.github.io/iptv/categories/movies.m3u',
-        icon: '🎬'
-      },
-      {
-        id: 'sports',
-        nameAr: 'الرياضة العالمية',
-        nameEn: 'Sports',
-        url: 'https://iptv-org.github.io/iptv/categories/sports.m3u',
-        icon: '⚽'
-      },
-      {
-        id: 'africa',
-        nameAr: 'القنوات الأفريقية',
-        nameEn: 'Africa',
-        url: 'https://iptv-org.github.io/iptv/regions/afr.m3u',
-        icon: '🦁'
-      },
-      {
-        id: 'culture x',
-        nameAr: 'محتوى ثقافي ',
-        nameEn: 'culture 20',
-        url: '
-http://wowza1.videos.movile.com:8080/live/smil:adulto_1.smil/playlist.m3u8
-#EXTINF:-1, JAZMIN XXX
-http://109.71.162.112:1935/live/sd.jasminchannel.stream/PAZ_Chega_de_Guerras.m3u8
-#EXTINF:-1, PASSIEXXX
-http://publish.thewebstream.co:1935/leved/_definst_/passiexxx/playlist.m3u8
-#EXTINF:-1, PLAYBOY TV XXX
-http://46.61.226.21/hls/CH_PLAYBOY/variant.m3u8?version=2
-#EXTINF:-1, ADULT PREMIUM 1 XXX
-http://wowza1.videos.movile.com:8080/live/smil:adultopremium_1.smil/mediab1100000_2398.m3u8
-#EXTINF:-1, ADULT PREMIUM 2 XXX
-http://wowza1.videos.movile.com:8080/live/smil:adulto_1.smil/mediab1100000_2400.m3u8
-#EXTINF:-1, POWER GIRLS XXX
-http://46.249.213.93/iPhone/broadcast/powergirls-tablet.3gp/powergirls-tablet.3gpmr648k.m3u8
-#EXTINF:-1, LIVE SEX LATINAS XXX
-http://178.33.126.213:1935/leved/livesexlatinas/chunklist.m3u8?
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://59.120.43.181:8081
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://59.120.43.181:8082
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://59.120.43.181:8083
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://59.120.43.181:8084
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://59.120.43.181:8085
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://59.120.43.181:8086
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv10
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv11
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv12
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv13
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv14
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv15
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://149.3.141.210:1935/tv/ttv16
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://46.105.116.159:1935/iptv_cellcast_24/livestream_three2/.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://178.33.126.213:1935/cellcast/encoder32/.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://46.105.116.159:1935/cellcast/encoder72/.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtsp://46.249.213.87/broadcast/bellaluz-tablet.3gp
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://best-shqip-iptv.blogdns.com/stream/XXX3/ferid-012-2015/2003palas1502
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-mmsh://tv.webmisto.cz:7000
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://208.122.3.2:9000
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://208.122.3.2:8700
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://185.38.12.20:8088/hustler_hd/
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://edge2.everyon.tv/etv2/phd1005/BratuMarian.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://edge2.everyon.tv/etv2/phd1006/BratuMarian.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://edge2.everyon.tv/etv2/pld1003/BratuMarian.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://edge2.everyon.tv/etv2/phd1003/BratuMarian.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-http://edge2.everyon.tv/etv2/pld1008/BratuMarian.m3u8
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://edge2.everyon.tv/etv2/phd1005
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://edge2.everyon.tv/etv2/phd1006
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://edge2.everyon.tv/etv2/pld1003
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://edge2.everyon.tv/etv2/phd1003
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://edge2.everyon.tv/etv2/pld1008
-#EXTINF:-1 tvg-id=Teleantioquia" tvg-logo="teleantioquia.png" group-title="NEW
-rtmp://edge2.everyon.tv/etv2/phd1008',
-        icon: '😍'
-      }
-    ];
-
-    let channels = [];
-    let filteredChannels = [];
-    let activeChannel = null;
-    let activeGroup = 'all';
-    let hlsInstance = null;
-    let fallbackTimeout = null;
-
-    // تهيئة الباقات عند بدء التشغيل
-    function init() {
-      const presetsDiv = document.getElementById('presetsContainer');
-      presetsDiv.innerHTML = PRESET_PLAYLISTS.map(p => `
-        <button onclick="loadPlaylist('${p.id}')" id="btn-${p.id}" class="shrink-0 flex items-center gap-2.5 px-4 py-3 rounded-xl border border-zinc-800/80 bg-zinc-900/45 text-zinc-300 hover:bg-zinc-850 hover:text-zinc-100 transition-all cursor-pointer">
-          <span class="text-lg">${p.icon}</span>
-          <div class="text-right">
-            <div class="text-xs font-bold">${p.nameAr}</div>
-            <div class="text-[9px] text-zinc-500 font-mono">${p.nameEn}</div>
-          </div>
-        </button>
-      `).join('');
-
-      // تحميل البث العربي كافتراضي
-      loadPlaylist('arabic');
-    }
-
-    // جلب بيانات ملف الـ M3U مع كسر قيود CORS تلقائياً
-    async function fetchPlaylistData(url) {
-      try {
-        const res = await fetch(url);
-        if (res.ok) return await res.text();
-      } catch (e) {}
-
-      try {
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-        const res = await fetch(proxyUrl);
-        if (res.ok) return await res.text();
-      } catch (e) {}
-
-      const backupProxy = `https://corsproxy.io/?${encodeURIComponent(url)}`;
-      const res = await fetch(backupProxy);
-      return await res.text();
-    }
-
-    // تحليل ملفات M3U
-    function parseM3U(text) {
-      const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      const parsed = [];
-      let current = null;
-
-      for (let line of lines) {
-        if (line.startsWith('#EXTINF:')) {
-          current = {};
-          const nameMatch = line.match(/,(.+)$/);
-          current.name = nameMatch ? nameMatch[1].trim() : 'قناة غير معروفة';
-          const logoMatch = line.match(/tvg-logo="([^"]*)"/i);
-          current.logo = logoMatch ? logoMatch[1] : '';
-          const groupMatch = line.match(/group-title="([^"]*)"/i);
-          current.group = groupMatch ? groupMatch[1].trim() : 'باقات عامة';
-        } else if (line.startsWith('http://') || line.startsWith('https://')) {
-          if (current) {
-            current.url = line;
-            current.id = parsed.length;
-            parsed.push(current);
-            current = null;
-          }
-        }
-      }
-      return parsed;
-    }
-
-    // تحميل باقة كاملة
-    async function loadPlaylist(id) {
-      const playlist = PRESET_PLAYLISTS.find(p => p.id === id);
-      if (!playlist) return;
-
-      // تعديل حالة الأزرار لتوضيح الباقة المحددة
-      PRESET_PLAYLISTS.forEach(p => {
-        const btn = document.getElementById(`btn-${p.id}`);
-        if (btn) {
-          if (p.id === id) {
-            btn.className = "shrink-0 flex items-center gap-2.5 px-4 py-3 rounded-xl border border-emerald-500 bg-emerald-500/10 text-emerald-400 transition-all cursor-pointer scale-105";
-          } else {
-            btn.className = "shrink-0 flex items-center gap-2.5 px-4 py-3 rounded-xl border border-zinc-800/80 bg-zinc-900/45 text-zinc-300 hover:bg-zinc-850 hover:text-zinc-100 transition-all cursor-pointer";
-          }
-        }
-      });
-
-      document.getElementById('playerLoadingOverlay').classList.remove('hidden');
-      document.getElementById('playerLoadingOverlay').classList.add('flex');
-      try {
-        const text = await fetchPlaylistData(playlist.url);
-        channels = parseM3U(text);
-        document.getElementById('globalChannelCount').textContent = channels.length;
-        
-        activeGroup = 'all';
-        buildGroups();
-        filterChannels();
-        
-        if (channels.length > 0) {
-          playChannel(channels[0].id);
-        }
-      } catch (err) {
-        alert('تعذر تحميل القنوات، يرجى التحقق من اتصالك بالإنترنت.');
-      } finally {
-        document.getElementById('playerLoadingOverlay').classList.remove('flex');
-        document.getElementById('playerLoadingOverlay').classList.add('hidden');
-      }
-    }
-
-    // بناء قائمة المجموعات والتصنيفات
-    function buildGroups() {
-      const groupsSet = new Set();
-      channels.forEach(ch => { if (ch.group) groupsSet.add(ch.group); });
-      const groups = Array.from(groupsSet).sort();
-
-      const container = document.getElementById('groupsContainer');
-      const section = document.getElementById('groupSelectorSection');
-      
-      if (groups.length <= 1) {
-        section.classList.add('hidden');
-        return;
-      }
-      section.classList.remove('hidden');
-
-      let html = `
-        <button onclick="setGroup('all')" class="shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border ${activeGroup === 'all' ? 'bg-emerald-500 text-zinc-950 border-emerald-500' : 'bg-zinc-900 border-zinc-800 text-zinc-400'} cursor-pointer">الكل</button>
-      `;
-      groups.forEach(g => {
-        html += `
-          <button onclick="setGroup('${g}')" class="shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold border ${activeGroup === g ? 'bg-emerald-500 text-zinc-950 border-emerald-500' : 'bg-zinc-900 border-zinc-800 text-zinc-400'} cursor-pointer">${g}</button>
-        `;
-      });
-      container.innerHTML = html;
-    }
-
-    function setGroup(g) {
-      activeGroup = g;
-      buildGroups();
-      filterChannels();
-    }
-
-    // فلترة القنوات وعرضها في القائمة الجانبية
-    function filterChannels() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      filteredChannels = channels.filter(ch => {
-        const matchGroup = activeGroup === 'all' || ch.group === activeGroup;
-        const matchSearch = !search || ch.name.toLowerCase().includes(search);
-        return matchGroup && matchSearch;
-      });
-
-      const container = document.getElementById('channelsContainer');
-      if (filteredChannels.length === 0) {
-        container.innerHTML = `<div class="text-center py-12 text-zinc-500 text-xs">لا توجد قنوات مطابقة للبحث</div>`;
-        return;
-      }
-
-      container.innerHTML = filteredChannels.slice(0, 100).map(ch => `
-        <div onclick="playChannel(${ch.id})" class="flex items-center justify-between gap-3 p-2.5 rounded-xl border ${activeChannel && activeChannel.id === ch.id ? 'bg-emerald-500/15 border-emerald-500/50 text-emerald-300' : 'bg-zinc-900/35 border-zinc-800/50 text-zinc-300 hover:bg-zinc-850'} cursor-pointer transition-all">
-          <div class="flex items-center gap-3 min-w-0 flex-1">
-            <div class="w-9 h-9 bg-zinc-950 rounded-lg overflow-hidden flex items-center justify-center text-xs font-bold text-zinc-500 border border-zinc-800">
-              ${ch.logo ? `<img src="${ch.logo}" class="w-full h-full object-contain p-1" onerror="this.style.display='none'">` : ch.name.slice(0,1)}
-            </div>
-            <div class="min-w-0 flex-1">
-              <p class="text-xs font-bold truncate">${ch.name}</p>
-              <p class="text-[10px] text-zinc-500 truncate mt-0.5">${ch.group || 'باقة عامة'}</p>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // تشغيل القناة المحددة وحقن الرابط في فيديو المشغل
-    function playChannel(id) {
-      const ch = channels.find(c => c.id === id);
-      if (!ch) return;
-
-      activeChannel = ch;
-      filterChannels();
-
-      document.getElementById('playerPlaceholder').classList.add('hidden');
-      document.getElementById('playerErrorOverlay').classList.add('hidden');
-      
-      const overlay = document.getElementById('playerLoadingOverlay');
-      overlay.classList.remove('hidden');
-      overlay.classList.add('flex');
-
-      if (fallbackTimeout) clearTimeout(fallbackTimeout);
-
-      // فحص جودة وتشغيل القناة وتخطيها تلقائياً إذا فشلت خلال 8 ثوانٍ
-      fallbackTimeout = setTimeout(() => {
-        handleStreamFailed();
-      }, 8000);
-
-      const video = document.getElementById('videoPlayer');
-
-      if (hlsInstance) {
-        hlsInstance.destroy();
-        hlsInstance = null;
-      }
-
-      if (ch.url.includes('m3u8') && Hls.isSupported()) {
-        hlsInstance = new Hls();
-        hlsInstance.loadSource(ch.url);
-        hlsInstance.attachMedia(video);
-        hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play().catch(() => {});
-          clearTimeout(fallbackTimeout);
-          overlay.classList.add('hidden');
-        });
-        hlsInstance.on(Hls.Events.ERROR, (e, data) => {
-          if (data.fatal) {
-            handleStreamFailed();
-          }
-        });
-      } else {
-        video.src = ch.url;
-        video.play().then(() => {
-          clearTimeout(fallbackTimeout);
-          overlay.classList.add('hidden');
-        }).catch(() => {});
-      }
-    }
-
-    // منطق التخطي التلقائي في حال تعطل البث المباشر
-    function handleStreamFailed() {
-      if (fallbackTimeout) clearTimeout(fallbackTimeout);
-      document.getElementById('playerLoadingOverlay').classList.add('hidden');
-      
-      const errOverlay = document.getElementById('playerErrorOverlay');
-      errOverlay.classList.remove('hidden');
-      errOverlay.classList.add('flex');
-
-      if (filteredChannels.length <= 1) return;
-
-      const currentIndex = filteredChannels.findIndex(c => c.id === activeChannel.id);
-      const nextIndex = (currentIndex + 1) % filteredChannels.length;
-      const nextChannel = filteredChannels[nextIndex];
-
-      setTimeout(() => {
-        playChannel(nextChannel.id);
-      }, 2000); // الانتقال خلال ثانيتين بسلاسة
-    }
-
-    // بدء تشغيل التطبيق
-    window.onload = init;
-  </script>
+  <nav class="mobileNav"><button class="btn" id="mobGroups">الباقات</button><button class="btn primary" id="mobChannels">قائمة القنوات</button><button class="btn" id="mobScan">فحص وحذف</button></nav>
+</div>
+<div class="modal" id="modal"><div class="dialog"><div class="dialogHead"><b>إضافة / دمج قائمة #EXTM3U</b><button class="btn ghost" id="closeModal">إغلاق</button></div><div class="dialogBody"><p class="hint" style="padding:0">الصق قائمة M3U أو روابط مباشرة. سيتم دمجها بدون تكرار، والقنوات ذات التصنيف الخاص تُخفى تلقائياً في باقة "🌿 وثائقي هه".</p><textarea class="textarea" id="m3uInput" placeholder="#EXTM3U&#10;#EXTINF:-1 group-title=&quot;News&quot;,Channel&#10;https://example.com/live.m3u8"></textarea></div><div class="dialogFoot"><button class="btn primary" id="mergeBtn">دمج القائمة</button><button class="btn" id="resetBtn">استعادة النسخة المدمجة</button></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+'use strict';
+var PRESET_CHANNELS = [{"id":"p_2c95b27bbd","name":"بث مباشر للمجرات والأرض (HLS)","url":"https://playertest.longtailvideo.com/adaptive/oceans/oceans.m3u8","logo":"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_5fd4805110","name":"فيلم دموع من فولاذ Tears of Steel (VOD)","url":"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4","logo":"https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"vod","favorite":false,"status":"unknown","private":false},{"id":"p_d39334d2e8","name":"فيديو طبيعة مهدئ خلاب (HLS)","url":"https://test-streams.mux.dev/x36xhg/x36xhg.m3u8","logo":"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_d1757fb0b1","name":"30A Golf Kingdom (720p)","url":"https://30a-tv.com/feeds/vidaa/golf.m3u8","logo":"https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_168659cfe2","name":"ACCDN (1080p)","url":"https://raycom-accdn-firetv.amagi.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_96896ad1a3","name":"ACI Sport TV (1080p)","url":"https://webstream.multistream.it/memfs/e2cb3629-c1a2-495b-b43a-9eb386f04ed8.m3u8","logo":"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_d27444fdf2","name":"ADO TV (720p)","url":"https://strhls.streamakaci.tv/ortb/ortb2-multi/playlist.m3u8","logo":"https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_81ee6ce1fa","name":"Africa 24 Sport (1080p)","url":"https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8","logo":"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_6d3daaf961","name":"Al Iraqia Sport (720p)","url":"https://imn-live.esite-lab.com/hls/iraqia-sports-1.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_77d7c7ffc6","name":"AS3 Sport TV (1080p)","url":"https://streamtv.as3sport.online:3394/hybrid/play.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_1420437237","name":"Bahrain Sports 1 (720p) [Not 24/7]","url":"https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_ddd3864fcc","name":"Bahrain Sports 2 (720p) [Not 24/7]","url":"https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_2a223e8d25","name":"CazeTV (1080i)","url":"https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_91453d9756","name":"DD Sports SD (1080p)","url":"https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_8f094488c8","name":"DraftKings Network (1080p)","url":"https://na.linear.zype.com/e0bd0e23-a958-4e43-8164-4f2fef8876a8/fd3614bd-90bf-4530-a277-65ae3a1720c8-zype/live.m3u8","logo":"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_4aa6c7eabe","name":"Equidia (1080p)","url":"https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/equidia/live2.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_40b9eb7f5c","name":"ESPN8 The Ocho (1080p)","url":"https://d3b6q2ou5kp8ke.cloudfront.net/ESPNTheOcho.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3508e6d64e","name":"Esport3 (1080p) [Not 24/7]","url":"https://directes-tv-int.3catdirectes.cat/live-content/esport3-hls/master.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_ef8cc22e08","name":"FightBox","url":"https://webtvstream.bhtelecom.ba/hls7/fightbox.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3a2d708608","name":"FloHockey 24/7 (1080p)","url":"https://amg02278-amg02278c2-flosports-worldwide-9916.playouts.now.amagi.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_d97ab7c51b","name":"FloRacing 24/7 (1080p)","url":"https://amg02278-amg02278c1-flosports-worldwide-7592.playouts.now.amagi.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_56ee6526da","name":"FTF Sports (720p)","url":"https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3c8e1f6661","name":"FTV (720p)","url":"https://master.tucableip.com/ftvhd/index.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_f153db53d6","name":"Fuel TV (1080p)","url":"https://amg01074-fueltv-fueltvau-samsungau-g09kq.amagi.tv/playlist/amg01074-fueltv-fueltvau-samsungau/playlist.m3u8","logo":"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_f3708bd0c6","name":"Futbol (1080p)","url":"https://live.teleradiocom.tj/8/3m.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_42fa23fcfc","name":"Golf Channel","url":"https://dash4.antik.sk/live/test_golf_channel/playlist.m3u8","logo":"https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_b68795c357","name":"INTROUBLE (1080p)","url":"https://amg00861-amg00861c6-stirr-us-8229.playouts.now.amagi.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_7a6b170eee","name":"ITV Deportes (720p)","url":"https://thm-it-roku.otteravision.com/thm/it/it.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_37110e9a26","name":"KTV Sport (1080p)","url":"https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_adb7d0feac","name":"KTV Sport Plus (1080p)","url":"https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_c8a7057788","name":"Lacrosse TV (720p)","url":"https://a-cdn.klowdtv.com/live2/lsn_720p/playlist.m3u8","logo":"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_da76ea55f7","name":"MadeinBO TV (1080p)","url":"https://srvx1.selftv.video/dmchannel/live/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3f6cd2291f","name":"More Than Sports TV (1080p)","url":"https://mts1.iptv-playoutcenter.de/mts/mts-web/playlist.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_b11cd8860f","name":"Nautical Channel (720p)","url":"https://a-cdn.klowdtv.com/live2/nautical_720p/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_9d3f1fd650","name":"NHRA TV (1080p)","url":"https://d265y4sk8257lt.cloudfront.net/nh.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_b134458511","name":"Overtime (1080p)","url":"https://d1a8aq6t30gkqj.cloudfront.net/v1/amc_overtime_1/samsungheadend_us/latest/main/hls/playlist_hd.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_d7b93972a7","name":"Persiana Fight","url":"https://fighthls.persiana.live/hls/stream.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_dd7fe86040","name":"PGA Tour (1080p)","url":"https://d11k1mnrgfposz.cloudfront.net/playlist.m3u8","logo":"https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_73aed1cfcf","name":"RACER International (1080p)","url":"https://amg00378-mavtv-amg00378c2-rakuten-us-1048.playouts.now.amagi.tv/playlist/amg00378-mavtvfast-motorsportsnetwork-rakutenus/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_4b83e8fbe3","name":"Racer Select (1080p)","url":"https://amg00378-amg00378c4-freelivesports-emea-5637.playouts.now.amagi.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_2ef27616d7","name":"Rally TV (1080p)","url":"https://rally-tv-live.akamaized.net/hls/live/2117704/RallyTV-Pri/master.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_4415302614","name":"Real Madrid TV English [Geo-blocked]","url":"https://rmtv.akamaized.net/hls/live/2043154/rmtv-en-web/bitrate_3.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_d874c987ab","name":"San Marino RTV Sport (720p)","url":"https://d2hrvno5bw6tg2.cloudfront.net/smrtv-ch02/smil:ch-02.smil/master.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_a81d4c8504","name":"Sportitalia (1080p)","url":"https://edge-001.streamup.eu/sportitalia/sihd_abr/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_c00b93f1d1","name":"Sportivnyy (1080p)","url":"https://live-3.otcnet.ru/sportivny/index.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_a7c89a1174","name":"Sporty TV","url":"https://dash2.antik.sk/live/sporty_tv/index.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_b69abc710b","name":"Strongman (720p)","url":"https://rightsboosterltd-scl-1-eu.rakuten.wurl.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_f9ccd9a46f","name":"Strongman Champions League (720p)","url":"https://rightsboosterltd-scl-2-eu.rakuten.wurl.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_32bda60def","name":"SuperTennis (1080p)","url":"https://live-embed.supertennix.hiway.media/restreamer/supertennix_client/gpu-a-c0-16/restreamer/outgest/aa3673f1-e178-44a9-a947-ef41db73211a/manifest.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_05c4eb6048","name":"Swerve Combat (1080p)","url":"https://linear-253.frequency.stream/mt/roku/253/hls/master/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3e6c190d74","name":"Teledeporte (720p) [Geo-blocked]","url":"https://rtvelivestream.rtve.es/rtvesec/tdp/tdp_main.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_834f0089da","name":"TR Sport (480p)","url":"https://livetr.teleromagna.it/mia/live/playlist.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_141fa29542","name":"TV Cuatro 4.3 (1080p)","url":"https://5ca3e84a76d30.streamlock.net/tv43gto/tv43gto.smil/.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_af81892de7","name":"TVR Sport","url":"https://tvr-sport.lg.mncdn.com/tvrsport/smil:tvrsport.smil/playlist.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_e9e6814c0b","name":"TyC Sports (1080p)","url":"https://amg26268-amg26268c14-freelivesports-emea-10267.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg26268-sportsstudio-tycsports-freelivesportsemea/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_7f20764749","name":"viju+ Sport","url":"https://stream8.cinerama.uz/1229/tracks-v1a1/mono.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_61947e1e4d","name":"Willow Sports (1080p)","url":"https://d36r8jifhgsk5j.cloudfront.net/Willow_TV1080p.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3951562a93","name":"Willow Sports (1080p) HD","url":"https://d36r8jifhgsk5j.cloudfront.net/Willow_TV.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_950a9d96db","name":"World of Freesports (1080p)","url":"https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/playlist.m3u8","logo":"https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_3a0eb936a6","name":"World Poker Tour (1080p)","url":"https://amg00477-samsungelectron-worldpokertour-samsunguk-81igb.amagi.tv/playlist/amg00477-samsungelectron-worldpokertour-samsunguk/playlist.m3u8","logo":"https://images.unsplash.com/photo-1540747737956-37872404f80a?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_4656b0de9b","name":"Астрахань.Ru Sport (720p)","url":"https://streaming.astrakhan.ru/astrakhanrusporthd/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_49efc2df37","name":"Беларусь 5 (1080p) [Not 24/7]","url":"https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false},{"id":"p_f1cb1f2e83","name":"Беларусь 5 Интернет (1080p) [Not 24/7]","url":"https://edge59.dc.beltelecom.by/ngtrk/smil:belarus5int.smil/playlist.m3u8","logo":"https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=150&q=80","group":"🛠️ قنوات تجريبية","type":"live","favorite":false,"status":"unknown","private":false}];
+var EXTRA_M3U = "#EXTM3U\n#EXTINF:-1 tvg-name=\"4U TV (720p)\" group-title=\"Entertainment\" tvg-logo=\"https://i.imgur.com/PexhKwp.png\",4U TV (720p)\nhttps://hls.4utv.live/hls/stream.m3u8\n#EXTINF:-1 tvg-name=\"360 TV (720p) [Not 24/7]\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/agn47sQ.png\",360 TV (720p) [Not 24/7]\nhttps://turkmedya-live.ercdn.net/tv360/tv360.m3u8\n#EXTINF:-1 tvg-name=\"A2TV (1080p)\" group-title=\"General\" tvg-logo=\"https://iatv.tmgrup.com.tr/site/v2/a2tv/i/a2tv-logo.png\",A2TV (1080p)\nhttps://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/a2tv/a2tv.m3u8\n#EXTINF:-1 tvg-name=\"A Haber (1080p)\" group-title=\"News\" tvg-logo=\"https://upload.wikimedia.org/wikipedia/commons/7/7c/Ahaber_Logo.png\",A Haber (1080p)\nhttps://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/ahaber/ahaber.m3u8\n#EXTINF:-1 tvg-name=\"A Spor (1080p)\" group-title=\"Sports - ⚽ رياضة ومباريات\" tvg-logo=\"https://i.imgur.com/ZhkZzLf.png\",A Spor (1080p)\nhttps://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor.m3u8\n#EXTINF:-1 tvg-name=\"AL24 News\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/vyVEXYL.png\",AL24 News\nhttps://cdn.live.easybroadcast.io/abr_corp/66_al24_u4yga6h/corp/66_al24_u4yga6h_240p/chunks.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera\nhttps://dash4.antik.sk/live/test_aljazeera/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera (1080p)\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera (1080p)\nhttps://live-hls-apps-aja-fa.getaj.net/AJA/01.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera (1080p)\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera (1080p)\nhttps://live-hls-apps-aja-fa.getaj.net/AJA/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera (1080p)\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera (1080p)\nhttps://live-hls-apps-aja-v3-fa.getaj.net/AJA/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera (1080p)\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera (1080p)\nhttps://live-hls-web-aja-fa.thehlive.com/AJA/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera Arabic (1080p)\" group-title=\"🇸🇦 العالم العربي\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera Arabic (1080p)\nhttps://live-hls-v3-aja.getaj.net/AJA-V3/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera Arabic (1080p)\" group-title=\"🇸🇦 العالم العربي\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera Arabic (1080p)\nhttps://live-hls-web-aja.getaj.net/AJA/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera Documentary (1080p) [Geo-blocked]\" group-title=\"Documentary - 🌿 وثائقيات وثقافة\" tvg-logo=\"https://i.imgur.com/5dNJlLo.png\",Al Jazeera Documentary (1080p) [Geo-blocked]\nhttps://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera Documentary (1080p) [Geo-blocked]\" group-title=\"Documentary - 🌿 وثائقيات وثقافة\" tvg-logo=\"https://i.imgur.com/5dNJlLo.png\",Al Jazeera Documentary (1080p) [Geo-blocked]\nhttps://live-hls-apps-ajd-v3-fa.getaj.net/AJD/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera Documentary (1080p) [Geo-blocked]\" group-title=\"Documentary - 🌿 وثائقيات وثقافة\" tvg-logo=\"https://i.imgur.com/5dNJlLo.png\",Al Jazeera Documentary (1080p) [Geo-blocked]\nhttps://live-hls-web-ajd.getaj.net/AJD/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera English\" group-title=\"🇺🇸 أمريكا وبريطانيا\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera English\nhttps://dash4.antik.sk/live/test_aljazeera_eng/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera English (1080p)\" group-title=\"🇺🇸 أمريكا وبريطانيا\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera English (1080p)\nhttps://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8\n#EXTINF:-1 tvg-name=\"Al Jazeera English (1080p)\" group-title=\"🇺🇸 أمريكا وبريطانيا\" tvg-logo=\"https://i.imgur.com/7bRVpnu.png\",Al Jazeera English (1080p)\nhttps://live-hls-web-aje-fa.thehlive.com/AJE/index.m3u8\n#EXTINF:-1 tvg-name=\"Alanya Posta TV (1080p)\" group-title=\"General\" tvg-logo=\"https://i.imgur.com/a3w9eFe.png\",Alanya Posta TV (1080p)\nhttps://api-tv3.yayin.com.tr/postatv/postatv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Almahriah TV (576p)\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/GgEeTNr.png\",Almahriah TV (576p)\nhttps://starmenajo.com/hls/almahriah/index.m3u8\n#EXTINF:-1 tvg-name=\"ATV (1080p)\" group-title=\"General\" tvg-logo=\"https://i.imgur.com/HyVUwFC.png\",ATV (1080p)\nhttps://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv_1080p.m3u8\n#EXTINF:-1 tvg-name=\"ATV Alanya (1080p)\" group-title=\"General\" tvg-logo=\"https://i.imgur.com/bUwarR0.png\",ATV Alanya (1080p)\nhttps://cdn-alanyatv.yayin.com.tr/alanyatv/alanyatv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"BeIN SPORTS XTRA En Espanol (720p)\" group-title=\"🇸🇦 العالم العربي - ⚽ رياضة ومباريات\" tvg-logo=\"https://i.imgur.com/V562tpO.png\",BeIN SPORTS XTRA En Espanol (720p)\nhttps://aegis-cloudfront-1.tubi.video/01f6c149-449b-4248-8bda-2278799205ec/playlist.m3u8\n#EXTINF:-1 tvg-name=\"BeIN Sports XTRA en Espanol (1080p)\" group-title=\"🇸🇦 العالم العربي - ⚽ رياضة ومباريات\" tvg-logo=\"https://i.imgur.com/V562tpO.png\",BeIN Sports XTRA en Espanol (1080p)\nhttps://bein-esp-xumo.amagi.tv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"beIN Sports XTRA en Espanol (1080p)\" group-title=\"🇸🇦 العالم العربي - ⚽ رياضة ومباريات\" tvg-logo=\"https://i.imgur.com/V562tpO.png\",beIN Sports XTRA en Espanol (1080p)\nhttps://dc1644a9jazgj.cloudfront.net/beIN_Sports_Xtra_Espanol.m3u8\n#EXTINF:-1 tvg-name=\"Bloomberg HT (720p) [Not 24/7]\" group-title=\"Business\" tvg-logo=\"https://i.imgur.com/bmkXfIE.png\",Bloomberg HT (720p) [Not 24/7]\nhttps://tv.ensonhaber.com/bloomberght/bloomberght.m3u8\n#EXTINF:-1 tvg-name=\"Bloomberg TV Plus (720p)\" group-title=\"Business\" tvg-logo=\"https://i.imgur.com/OuogLHx.png\",Bloomberg TV Plus (720p)\nhttps://cdn4.skygo.mn/live/disk1/Bloomberg/HLSv3-FTA/Bloomberg.m3u8\n#EXTINF:-1 tvg-name=\"Bloomberg TV+ (2160p)\" group-title=\"Business\" tvg-logo=\"https://i.imgur.com/OuogLHx.png\",Bloomberg TV+ (2160p)\nhttps://d2d98ykcmmhgd4.cloudfront.net/v1/bloomberg_bloombergtv_2/samsungheadend_us/latest/main/hls/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Bursa AS TV (900p)\" group-title=\"News\" tvg-logo=\"https://asset.artidijitalmedya.com/image/188x188/channels/v1/logo_13.png\",Bursa AS TV (900p)\nhttps://live.artidijitalmedya.com/artidijital_astv/astv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Çiftçi TV (720p) [Not 24/7]\" group-title=\"Culture;Education\" tvg-logo=\"https://i.imgur.com/CLzP4vL.png\",Çiftçi TV (720p) [Not 24/7]\nhttps://live.artidijitalmedya.com/artidijital_ciftcitv/ciftcitv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"CNA (360p) [Not 24/7]\" group-title=\"Religious\" tvg-logo=\"https://i.imgur.com/Ki3ySUE.png\",CNA (360p) [Not 24/7]\nhttps://live.creacast.com/cna/stream/playlist.m3u8\n#EXTINF:-1 tvg-name=\"CNA (Chaîne Nord Africaine) (360p) [Not 24/7]\" group-title=\"Religious\" tvg-logo=\"https://i.imgur.com/Ki3ySUE.png\",CNA (Chaîne Nord Africaine) (360p) [Not 24/7]\nhttps://live.creacast.com/cna/smil:cna.smil/playlist.m3u8\n#EXTINF:-1 tvg-name=\"CNBC-e\" group-title=\"Business;Series - 📺 مسلسلات ودراما\" tvg-logo=\"https://s.cnbce.com/dist/images/logo-nav.png\",CNBC-e\nhttps://hnpsechtsc.turknet.ercdn.net/xpnvudnlsv/cnbc-e/cnbc-e.m3u8\n#EXTINF:-1 tvg-name=\"Deniz Postası TV (720p) [Not 24/7]\" group-title=\"General\" tvg-logo=\"https://i.imgur.com/Mm8hdfx.png\",Deniz Postası TV (720p) [Not 24/7]\nhttps://live.artidijitalmedya.com/artidijital_denizpostasi/denizpostasi/playlist.m3u8\n#EXTINF:-1 tvg-name=\"DİM TV (720p) [Geo-blocked]\" group-title=\"News - 🌿 وثائقيات وثقافة\" tvg-logo=\"https://i.imgur.com/X4QFDhk.png\",DİM TV (720p) [Geo-blocked]\nhttps://live.artidijitalmedya.com/artidijital_dimtv/dimtv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Diyar TV (720p)\" group-title=\"🇸🇦 العالم العربي\" tvg-logo=\"https://i.imgur.com/qWkHjRA.png\",Diyar TV (720p)\nhttps://live.artidijitalmedya.com/artidijital_diyartv/diyartv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Elsharq TV (1080p) [Not 24/7]\" group-title=\"General\" tvg-logo=\"https://i.imgur.com/8vmfZb5.png\",Elsharq TV (1080p) [Not 24/7]\nhttps://mn-nl.mncdn.com/elsharq_live/live/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Er TV (1080p) [Geo-blocked]\" group-title=\"General - 🌿 وثائقيات وثقافة\" tvg-logo=\"https://i.imgur.com/VDGEPrD.png\",Er TV (1080p) [Geo-blocked]\nhttps://live.artidijitalmedya.com/artidijital_ertv_new/ertv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Erzurum Web TV (720p)\" group-title=\"General\" tvg-logo=\"https://i.imgur.com/HF7N4Li.png\",Erzurum Web TV (720p)\nhttps://win29.yayin.com.tr/erzurumwebtv/erzurumwebtv/iptvdelisi.m3u8\n#EXTINF:-1 tvg-name=\"ES TV (720p)\" group-title=\"🌐 باقة عامة\" tvg-logo=\"https://i.imgur.com/epAEBrp.png\",ES TV (720p)\nhttps://live.artidijitalmedya.com/artidijital_estv/estv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"ETV Kayseri (720p)\" group-title=\"General\" tvg-logo=\"https://yt3.googleusercontent.com/ytc/AIdro_msPtG6zfPKIJIIdvG4dehXLoVoXcHM2-2HL9YxsNYzGQ=s512-c-k-c0x00ffffff-no-rj\",ETV Kayseri (720p)\nhttps://live.artidijitalmedya.com/artidijital_etv/etv/playlist.m3u8\n#EXTINF:-1 tvg-name=\"Flash Haber TV\" group-title=\"News\",Flash Haber TV\nhttps://b01c02nl.mediatriple.net/videoonlylive/mtyycglqauzjhlive/broadcast_67c053c48829f.smil/playlist.m3u8\n#EXTINF:-1 tvg-name=\"GEM Pixel\" group-title=\"Movies - 🎬 أفلام وسينما\" tvg-logo=\"https://i.ibb.co/Q3tkbPrn/icon-27.png\",GEM Pixel\nhttps://glserver1.tamashaland.com/live/aBCH96886YznRbGOiqTnnQ__/stream_0.m3u8\n#EXTINF:-1 tvg-name=\"Grand Cinema\" group-title=\"Movies - 🎬 أفلام وسينما\",Grand Cinema\nhttps://gcinemahls.wns.live/hls/stream.m3u8\n#EXTINF:-1 tvg-name=\"Haber Global (720p) [Not 24/7]\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/fu6XeGS.png\",Haber Global (720p) [Not 24/7]\nhttps://tv.ensonhaber.com/haberglobal/haberglobal.m3u8\n#EXTINF:-1 tvg-name=\"Habertürk TV (720p) [Not 24/7]\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/6Tw3rUp.png\",Habertürk TV (720p) [Not 24/7]\nhttps://tv.ensonhaber.com/haberturk/haberturk.m3u8\n#EXTINF:-1 tvg-name=\"Halk TV (1080p)\" group-title=\"News\" tvg-logo=\"https://i.imgur.com/xM0HA30.png\",Halk TV (1080p)\nhttps://halktv-live.daioncdn.net/halktv/halktv.m3u8\n#EXTM3U\n#EXTINF:-1 tvg-id=\"AdultIPTVnetAnal.us\" tvg-logo=\"https://i.imgur.com/QFo6Ptm.png\" group-title=\"XXX\",AdultIPTV.net Anal (720p)\nhttps://cdn.adultiptv.net/anal.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetAsian.us\" tvg-logo=\"https://i.imgur.com/mBJyTOp.png\" group-title=\"XXX\",AdultIPTV.net Asian (720p)\nhttps://cdn.adultiptv.net/asian.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetBigAss.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Big Ass (720p)\nhttps://cdn.adultiptv.net/bigass.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetBigDick.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Big Dick (720p)\nhttps://cdn.adultiptv.net/bigdick.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetBigTits.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Big Tits (720p)\nhttps://cdn.adultiptv.net/bigtits.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetBlonde.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Blonde (720p)\nhttps://cdn.adultiptv.net/blonde.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetBlowjob.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Blowjob (720p)\nhttps://cdn.adultiptv.net/blowjob.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetBrunette.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Brunette (720p)\nhttps://cdn.adultiptv.net/brunette.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetCompilation.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Compilation (720p)\nhttps://cdn.adultiptv.net/compilation.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetCuckold.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Cuckold (720p)\nhttps://cdn.adultiptv.net/cuckold.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetFetish.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Fetish (720p)\nhttps://cdn.adultiptv.net/fetish.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetGangbang.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Gangbang (720p)\nhttps://cdn.adultiptv.net/gangbang.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetGay.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Gay (720p)\nhttps://cdn.adultiptv.net/gay.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetHardcore.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Hardcore (720p)\nhttps://cdn.adultiptv.net/hardcore.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetInterracial.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Interracial (720p)\nhttps://cdn.adultiptv.net/interracial.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetLatina.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Latina (720p)\nhttps://cdn.adultiptv.net/latina.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetLesbian.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Lesbian (720p)\nhttps://cdn.adultiptv.net/lesbian.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetLiveCams.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Live Cams (720p)\nhttps://cdn.adultiptv.net/livecams.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetMILF.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net MILF (720p)\nhttps://cdn.adultiptv.net/milf.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetPornstar.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Pornstar (720p)\nhttps://cdn.adultiptv.net/pornstar.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetPOV.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net POV (720p)\nhttps://cdn.adultiptv.net/pov.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetRough.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Rough (720p)\nhttps://cdn.adultiptv.net/rough.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetRussian.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Russian (720p)\nhttps://cdn.adultiptv.net/russian.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetTeen.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Teen (720p)\nhttps://cdn.adultiptv.net/teen.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetThreesome.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Threesome (720p)\nhttps://cdn.adultiptv.net/threesome.m3u8\n#EXTINF:-1 tvg-id=\"AdultIPTVnetWoman.us\" tvg-logo=\"https://i.imgur.com/3eUIaHx.png\" group-title=\"XXX\",AdultIPTV.net Woman (720p)\nhttps://live.redtraffic.net/woman.m3u8\n#EXTINF:-1 tvg-id=\"Babestation24.de\" tvg-logo=\"https://i.imgur.com/Y6uU6fP.png\" group-title=\"XXX\",Babestation24 (720p)\nhttps://sdn-global-live-streaming-packager-cache.3qsdn.com/9528/9528_264_live.m3u8\n#EXTINF:-1 tvg-id=\"FashionTVMidnightSecrets.fr\" tvg-logo=\"https://i.imgur.com/GFTAN5Q.png\" group-title=\"XXX\",Fashion TV Midnight Secrets (1080p)\nhttps://fash1043.cloudycdn.services/slive/ftv_ftv_midnite_k1y_27049_midnite_secr_108_hls.smil/playlist.m3u8\n#EXTINF:-1 tvg-id=\"JasminTV.lu\" tvg-logo=\"https://i.imgur.com/3VdU9r0.png\" group-title=\"XXX\",Jasmin TV (1080p)\nhttp://109.71.163.112:1935/live/hd.jasminchannel.stream/playlist.m3u8\n#EXTINF:-1 tvg-id=\"MiamiTV.us\" tvg-logo=\"https://i.imgur.com/esK4CBZ.png\" group-title=\"XXX\",Miami TV (720p)\nhttps://59ec5453559f0.streamlock.net/miamitv/smil:miamitv/playlist.m3u8\n#EXTINF:-1 tvg-id=\"JennyLive.us\" tvg-logo=\"https://i.imgur.com/3vsBZI3.png\" group-title=\"XXX\",Miami TV Jenny Live (720p) [Not 24/7]\nhttps://59ec5453559f0.streamlock.net/JennyLive/JennyLive/playlist.m3u8\n#EXTINF:-1 tvg-id=\"MiamiTVMexico.us\" tvg-logo=\"https://i.imgur.com/MpQtdTb.png\" group-title=\"XXX\",Miami TV México (720p) [Not 24/7]\nhttps://59ec5453559f0.streamlock.net/mexicotv/smil:miamitvmexicoROKU/playlist.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVAnal.cy\" tvg-logo=\"https://i.imgur.com/sli5irt.png\" group-title=\"XXX\",MyCamTV Anal (720p)\nhttps://live.mycamtv.com/anal.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVAsian.cy\" tvg-logo=\"https://i.imgur.com/FBSodo6.png\" group-title=\"XXX\",MyCamTV Asian (720p)\nhttps://live.mycamtv.com/asian.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVBigAss.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Big Ass (720p)\nhttps://live.mycamtv.com/defstream.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVBigTits.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Big Tits (720p)\nhttps://live.mycamtv.com/bigtits.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVBlonde.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Blonde (720p)\nhttps://live.mycamtv.com/blonde.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVBrunette.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Brunette (720p)\nhttps://live.mycamtv.com/brunette.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVEbony.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Ebony (720p)\nhttps://live.mycamtv.com/medium.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVLatina.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Latina (720p)\nhttps://live.mycamtv.com/latina.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVSkinny.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Skinny (720p)\nhttps://live.mycamtv.com/arab.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVSquirt.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV Squirt (720p)\nhttps://live.mycamtv.com/squirt.m3u8\n#EXTINF:-1 tvg-id=\"MyCamTVWhite.cy\" tvg-logo=\"https://cdn.strpst.com/assets/icons/headerlogo_mycamtv.com.png\" group-title=\"XXX\",MyCamTV White (720p)\nhttps://live.mycamtv.com/white.m3u8\n#EXTINF:-1 tvg-id=\"Olala.ru\" tvg-logo=\"https://i.imgur.com/adhMvTl.png\" group-title=\"XXX\",O-la-la (576p)\nhttp://93.125.29.22:8787/Olala\n#EXTINF:-1 tvg-id=\"SuperOne.hu\" tvg-logo=\"https://i.imgur.com/T4PbWL6.png\" group-title=\"XXX\",SuperOne (1080p)\nhttp://84.17.61.203:8086/udp/238.2.25.83:1234\n#EXTINF:-1 tvg-id=\"XpandedTV.uk\" tvg-logo=\"https://i.imgur.com/p4RR9GM.png\" group-title=\"XXX\" user-agent=\"Mozilla/5.0\",Xpanded TV Studio Cam\n#EXTVLCOPT:http-user-agent=Mozilla/5.0\nhttps://vod2t.xpanded.com/x3tv2/index_wlan.m3u8\n";
+var HLS_SRCS = ['https://cdn.jsdelivr.net/npm/hls.js@0.14.17/dist/hls.light.min.js','https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.14.17/hls.light.min.js','https://unpkg.com/hls.js@0.14.17/dist/hls.light.min.js'];
+var STORE = 'kikon_fast_channels_v2';
+var STORE_SCAN = 'kikon_fast_autoscan_v1';
+var SCREEN_STORE = 'kikon_fast_screen_v1';
+var PRIVATE_GROUP ='xfact 15 ';
+var state = {channels:[], active:null, group:'الكل', q:'', gq:'', sort:'default', shown:80, private:false, scanning:false, cancelScan:false, hls:null, hlsLoading:false, resetListScroll:false};
+var $ = function(id){return document.getElementById(id)};
+function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function idFor(url){var h=0,i;for(i=0;i<url.length;i++){h=((h<<5)-h)+url.charCodeAt(i);h|=0}return 'c_'+Math.abs(h)}
+function lower(s){return String(s||'').toLowerCase()}
+function isPrivate(name,group,url){var t=lower(name+' '+group+' '+url);return group==='XXX'||t.indexOf('adultiptv')>-1||t.indexOf('mycamtv')>-1||t.indexOf('jasmin')>-1||t.indexOf('babestation')>-1||t.indexOf('xpanded')>-1||t.indexOf('redtraffic')>-1||t.indexOf('porn')>-1||t.indexOf('xxx')>-1}
+function typeOf(url,name,group){var t=lower(url+' '+name+' '+group);if(t.indexOf('.mp4')>-1||t.indexOf('.mkv')>-1||t.indexOf('movie')>-1)return 'vod';if(t.indexOf('series')>-1||t.indexOf('مسلسل')>-1)return 'series';return 'live'}
+function cleanGroup(name,group,url){if(isPrivate(name,group,url))return PRIVATE_GROUP;if(!group||group==='General')return '🌐 باقة عامة';if(group==='News')return '📰 أخبار';if(group==='Entertainment')return '🎭 ترفيه';if(group==='Business')return '💼 اقتصاد';if(group==='Movies')return '🎬 أفلام وسينما';if(group.indexOf('Sports')>-1)return '⚽ رياضة ومباريات';if(group.indexOf('Documentary')>-1)return '🌿 وثائقيات وثقافة';return group}
+function attrs(line){var out={},m,re=/([\w-]+)="([^"]*)"/g;while((m=re.exec(line)))out[m[1]]=m[2];return out}
+function parseM3U(text){var lines=String(text||'').split(/\r?\n/), out=[], info=null, i,line,a,name,group,logo,url,priv;for(i=0;i<lines.length;i++){line=lines[i].trim();if(!line||line==='#EXTM3U'||line.indexOf('#EXTVLCOPT')===0)continue;if(line.indexOf('#EXTINF:')===0){a=attrs(line);name=line.indexOf(',')>-1?line.slice(line.lastIndexOf(',')+1).trim():(a['tvg-name']||'قناة');group=a['group-title']||'';logo=a['tvg-logo']||'';info={name:name,group:group,logo:logo};continue}if(/^https?:\/\//i.test(line)){url=line;if(!info)info={name:'بث مباشر',group:'',logo:''};priv=isPrivate(info.name,info.group,url);out.push({id:idFor(url),name:info.name,url:url,logo:info.logo||'',group:cleanGroup(info.name,info.group,url),type:typeOf(url,info.name,info.group),favorite:false,status:'unknown',private:priv});info=null}}
+return out}
+function merge(){var map={}, res=[], i,c;for(i=0;i<arguments.length;i++){(arguments[i]||[]).forEach(function(x){if(!x||!x.url)return;var y={id:x.id||idFor(x.url),name:x.name||'قناة',url:x.url,logo:x.logo||'',group:cleanGroup(x.name,x.group,x.url),type:x.type||typeOf(x.url,x.name,x.group),favorite:!!x.favorite,status:x.status||'unknown',private:!!x.private||isPrivate(x.name,x.group,x.url)};if(!map[y.url]){map[y.url]=y;res.push(y)}else{map[y.url].favorite=map[y.url].favorite||y.favorite;map[y.url].status=map[y.url].status==='online'?'online':y.status}})}return res}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state.channels))}catch(e){toast('تعذر الحفظ، ذاكرة المتصفح ممتلئة','bad')}}
+function load(){var saved=[];try{saved=JSON.parse(localStorage.getItem(STORE)||'[]')||[]}catch(e){}state.channels=merge(PRESET_CHANNELS,parseM3U(EXTRA_M3U),saved);if(!localStorage.getItem(STORE))save();render();var auto=localStorage.getItem(STORE_SCAN);if(auto==='1')setTimeout(function(){startScan(true)},900)}
+function visibleBase(){return state.channels.filter(function(c){return state.private||!c.private})}
+function filtered(){var arr=visibleBase(),q=lower(state.q);if(state.group!=='الكل')arr=arr.filter(function(c){return c.group===state.group});if(q)arr=arr.filter(function(c){return lower(c.name+' '+c.group+' '+c.url).indexOf(q)>-1});if(state.sort==='az')arr=arr.slice().sort(function(a,b){return a.name.localeCompare(b.name,'ar')});if(state.sort==='online')arr=arr.slice().sort(function(a,b){return (b.status==='online')-(a.status==='online')});return arr}
+function groups(){var m={'الكل':visibleBase().length};visibleBase().forEach(function(c){m[c.group]=(m[c.group]||0)+1});return Object.keys(m).map(function(k){return {name:k,count:m[k]}}).filter(function(x){return !state.gq||lower(x.name).indexOf(lower(state.gq))>-1||x.name==='الكل'})}
+function render(){renderGroups();renderChannels();renderNow();renderStats()}
+function renderGroups(){var box=$('groups'), drop=$('groupDropList'), html='', dhtml='';groups().forEach(function(g){var active=state.group===g.name;var row='<button class="cat '+(active?'active':'')+'" data-group="'+esc(g.name)+'"><span>'+esc(g.name)+'</span><span class="badge">'+g.count+'</span></button>';html+=row;dhtml+=row});if(box)box.innerHTML=html;if(drop)drop.innerHTML=dhtml;var label=$('currentGroupLabel');if(label)label.textContent='الباقات: '+state.group}
+function statusDot(c){var color=c.status==='online'?'#22c55e':(c.status==='offline'?'#ef4444':'#64748b');return '<span style="width:8px;height:8px;border-radius:50%;background:'+color+';display:inline-block"></span>'}
+function renderChannels(){var arr=filtered(),box=$('channels'), html='', max=Math.min(state.shown,arr.length);for(var i=0;i<max;i++){var c=arr[i],active=state.active&&state.active.url===c.url;html+='<button class="chan '+(active?'active':'')+'" data-url="'+esc(c.url)+'"><span class="chanMain">'+(c.logo?'<img class="logo" loading="lazy" src="'+esc(c.logo)+'" alt="">':'<span class="logo fallbackLogo">TV</span>')+'<span class="chanText"><span class="chanName">'+esc(c.name)+'</span><span class="chanMeta">'+esc(c.group)+'</span></span></span><span>'+statusDot(c)+'</span></button>'}box.innerHTML=html||'<div class="hint">لا توجد قنوات في هذه الباقة أو أنها مخفية. جرّب باقة أخرى أو أظهر الباقة المخفية من زر القفل.</div>';if(state.resetListScroll){box.scrollTop=0;state.resetListScroll=false}$('moreBtn').style.display=arr.length>max?'block':'none';$('moreBtn').textContent=arr.length>max?'عرض المزيد ('+(arr.length-max)+')':'تم عرض '+arr.length+' قناة'}
+function renderNow(){var c=state.active;$('empty').className=c?'empty hidden':'empty';$('liveBadge').className=c?'live':'live hidden';$('nowTitle').textContent=c?c.name:'لا يوجد بث نشط';$('nowGroup').textContent=c?c.group:'اختر من القائمة';var l=$('nowLogo');if(c&&c.logo){l.className='logo';l.innerHTML='';l.style.backgroundImage='url("'+c.logo.replace(/"/g,'')+'")';l.style.backgroundSize='cover'}else{l.className='logo fallbackLogo';l.style.backgroundImage='';l.textContent='TV'}$('favBtn').textContent=c&&c.favorite?'إزالة المفضلة':'مفضلة'}
+function renderStats(){var base=visibleBase(), hidden=state.channels.filter(function(c){return c.private}).length;$('stTotal').textContent=base.length;$('stGroups').textContent=groups().length;$('stOnline').textContent=state.channels.filter(function(c){return c.status==='online'}).length;$('stHidden').textContent=hidden}
+function toast(msg,kind){var d=document.createElement('div');d.className=kind==='bad'?'bad':(kind==='ok'?'ok':'');d.textContent=msg;$('toast').appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},3500)}
+function loadHls(cb){if(window.Hls)return cb(true);if(state.hlsLoading){setTimeout(function(){loadHls(cb)},250);return}state.hlsLoading=true;function one(i){if(i>=HLS_SRCS.length){state.hlsLoading=false;toast('تعذر تحميل مشغل HLS. جرّب اتصالاً آخر أو متصفح Chrome/Firefox حديث.','bad');cb(false);return}var s=document.createElement('script');s.src=HLS_SRCS[i];s.async=true;s.onload=function(){if(window.Hls){state.hlsLoading=false;cb(true)}else one(i+1)};s.onerror=function(){one(i+1)};document.head.appendChild(s)}one(0)}
+function stop(){var v=$('video');try{if(state.hls){state.hls.destroy();state.hls=null}}catch(e){}v.pause();v.removeAttribute('src');try{v.load()}catch(e){}$('liveBadge').className='live hidden'}
+function play(c){if(!c)c=state.active;if(!c)return;state.active=c;stop();render();var v=$('video'),url=c.url;function direct(){v.src=url;v.play().catch(function(){toast('اضغط زر التشغيل داخل الفيديو إذا منع المتصفح التشغيل التلقائي','bad')})}if(/\.m3u8(\?|$)/i.test(url)||url.indexOf('/hls/')>-1){if(v.canPlayType('application/vnd.apple.mpegurl')){direct()}else{loadHls(function(ok){if(ok&&window.Hls&&Hls.isSupported()){state.hls=new Hls({enableWorker:false,lowLatencyMode:false,maxBufferLength:10,maxMaxBufferLength:18,backBufferLength:0,capLevelToPlayerSize:true,startLevel:-1});state.hls.loadSource(url);state.hls.attachMedia(v);state.hls.on(Hls.Events.MANIFEST_PARSED,function(){v.play().catch(function(){toast('اضغط زر التشغيل داخل الفيديو إذا منع المتصفح التشغيل التلقائي','bad')})});state.hls.on(Hls.Events.ERROR,function(evt,data){if(data&&data.fatal){try{state.hls.destroy()}catch(e){}state.hls=null;toast('تعذر هذا البث. قد يكون الرابط محجوباً أو متوقفاً. جرّب قناة أخرى.','bad');direct()}})}else{direct()}})}}else{direct()}mark(c.url,'online',false)}
+function mark(url,status,doSave){state.channels.forEach(function(c){if(c.url===url)c.status=status});if(doSave!==false)save();render()}
+function removeUrl(url){state.channels=state.channels.filter(function(c){return c.url!==url});if(state.active&&state.active.url===url){state.active=null;stop()}save();render()}
+function exportM3U(){var arr=visibleBase(), s='#EXTM3U\n';arr.forEach(function(c){s+='#EXTINF:-1 tvg-name="'+c.name.replace(/"/g,'')+'" group-title="'+c.group.replace(/"/g,'')+'"'+(c.logo?' tvg-logo="'+c.logo.replace(/"/g,'')+'"':'')+','+c.name+'\n'+c.url+'\n'});var blob=new Blob([s],{type:'audio/x-mpegurl;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kikon_fast_playlist.m3u';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},100)}
+function fetchWithTimeout(url,mode,ms){return new Promise(function(resolve){var done=false,ctrl=window.AbortController?new AbortController():null,t=setTimeout(function(){if(done)return;done=true;if(ctrl)try{ctrl.abort()}catch(e){}resolve(false)},ms);fetch(url,{method:'GET',mode:mode,cache:'no-store',signal:ctrl?ctrl.signal:undefined}).then(function(r){if(done)return;done=true;clearTimeout(t);resolve(mode==='no-cors'||r.type==='opaque'||r.ok||r.status<400)}).catch(function(){if(done)return;done=true;clearTimeout(t);resolve(false)})})}
+function probe(url){return fetchWithTimeout(url,'cors',4800).then(function(ok){return ok?true:fetchWithTimeout(url,'no-cors',5200)})}
+function startScan(auto){if(state.scanning)return;var list=visibleBase().slice();if(auto)list=list.filter(function(c){return c.status!=='online'});if(!list.length){toast('لا توجد قنوات تحتاج الفحص','ok');return}state.scanning=true;state.cancelScan=false;$('scanBox').className='panel scan show';var i=0,ok=0,bad=0,total=list.length;function step(){if(state.cancelScan||i>=total){state.scanning=false;save();render();$('scanText').textContent=state.cancelScan?'تم إيقاف الفحص':'اكتمل الفحص';toast('نتيجة الفحص: يعمل '+ok+' / محذوف '+bad,(bad?'':'ok'));return}var c=list[i++];$('scanText').textContent='فحص الروابط وحذف المعطوب';$('scanMeta').textContent='تم فحص '+i+' من '+total+' — يعمل '+ok+' — محذوف '+bad;$('scanBar').style.width=Math.round((i/total)*100)+'%';probe(c.url).then(function(alive){if(alive){ok++;mark(c.url,'online',false)}else{bad++;removeUrl(c.url)}setTimeout(step,80)})}toast(auto?'بدأ الفحص التلقائي الهادئ':'بدأ الفحص الشامل');step()}
+function togglePrivate(){if(!state.private){var pin=prompt('اكتب 0000 لإظهار الباقة المخفية');if(pin!=='0000')return}state.private=!state.private;state.group='الكل';render();toast(state.private?'تم إظهار الباقة المخفية باسم '+PRIVATE_GROUP:'تم إخفاء الباقة المخفية')}
+function applyScreen(saveIt){var v=$('video'),w=$('videoWrap');if(!$('fitMode')||!v||!w)return;var fit=$('fitMode').value,ratio=$('ratioMode').value,bright=$('brightness').value;v.style.objectFit=fit;v.style.filter='brightness('+bright+'%)';w.style.aspectRatio=ratio;if(saveIt!==false){try{localStorage.setItem(SCREEN_STORE,JSON.stringify({fit:fit,ratio:ratio,bright:bright}))}catch(e){}}}
+function loadScreen(){try{var x=JSON.parse(localStorage.getItem(SCREEN_STORE)||'{}');if(x.fit&&$('fitMode'))$('fitMode').value=x.fit;if(x.ratio&&$('ratioMode'))$('ratioMode').value=x.ratio;if(x.bright&&$('brightness'))$('brightness').value=x.bright}catch(e){}applyScreen(false)}
+function fullscreenPlayer(){var el=$('videoWrap');if(!el)return;if(document.fullscreenElement){document.exitFullscreen&&document.exitFullscreen();return}if(el.requestFullscreen)el.requestFullscreen().catch(function(){toast('تعذر ملء الشاشة من هذا المتصفح','bad')});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen()}
+function openChannelsPanel(){try{if(window.innerWidth<901)document.body.classList.add('show-channels')}catch(e){}}
+function closeChannelsPanel(){try{document.body.classList.remove('show-channels')}catch(e){}}
+function findButton(el){while(el&&el!==document){if(el.tagName&&String(el.tagName).toLowerCase()==='button')return el;el=el.parentNode}return null}
+function bind(){document.addEventListener('click',function(e){var t=findButton(e.target);if(!t)return;var g=t.getAttribute('data-group'),u=t.getAttribute('data-url');if(g){state.group=g;state.shown=80;state.resetListScroll=true;render();openChannelsPanel();return}if(u){var c=state.channels.filter(function(x){return x.url===u})[0];play(c);closeChannelsPanel();return}if(t.hasAttribute('data-close')){closeChannelsPanel();var ds=document.querySelectorAll('.drawer');for(var di=0;di<ds.length;di++)ds[di].classList.remove('drawer');return}});$('search').oninput=function(){state.q=this.value;state.shown=80;state.resetListScroll=true;renderChannels()};$('groupSearch').oninput=function(){state.gq=this.value;renderGroups()};$('sort').onchange=function(){state.sort=this.value;state.resetListScroll=true;renderChannels()};$('moreBtn').onclick=function(){state.shown+=80;renderChannels()};$('playBtn').onclick=function(){play()};$('stopBtn').onclick=stop;$('favBtn').onclick=function(){if(!state.active)return;state.active.favorite=!state.active.favorite;state.channels.forEach(function(c){if(c.url===state.active.url)c.favorite=state.active.favorite});save();render()};$('delBtn').onclick=function(){if(state.active&&confirm('حذف هذه القناة؟'))removeUrl(state.active.url)};$('exportBtn').onclick=exportM3U;$('scanBtn').onclick=function(){startScan(false)};$('mobScan').onclick=function(){startScan(false)};$('cancelScan').onclick=function(){state.cancelScan=true};$('importBtn').onclick=function(){$('modal').className='modal show'};$('closeModal').onclick=function(){$('modal').className='modal'};$('mergeBtn').onclick=function(){var added=parseM3U($('m3uInput').value);if(!added.length){toast('لم يتم العثور على روابط صالحة','bad');return}var before=state.channels.length;state.channels=merge(state.channels,added);save();render();$('modal').className='modal';$('m3uInput').value='';toast('تم دمج '+(state.channels.length-before)+' قناة جديدة','ok')};$('resetBtn').onclick=function(){if(confirm('استعادة القنوات المدمجة ومسح تعديلاتك؟')){localStorage.removeItem(STORE);state.channels=[];state.active=null;load();toast('تمت الاستعادة','ok')}};$('privateBtn').onclick=togglePrivate;$('brand').ondblclick=togglePrivate;$('mobGroups').onclick=function(){$('catPanel').classList.add('drawer')};$('mobChannels').onclick=function(){openChannelsPanel()};$('fitMode').onchange=function(){applyScreen(true)};$('ratioMode').onchange=function(){applyScreen(true)};$('brightness').oninput=function(){applyScreen(true)};$('resetScreen').onclick=function(){$('fitMode').value='contain';$('ratioMode').value='16/9';$('brightness').value='100';applyScreen(true);toast('تمت إعادة ضبط إعدادات الشاشة','ok')};$('fullBtn').onclick=fullscreenPlayer;loadScreen();window.addEventListener('beforeunload',stop)}
+bind();load();
+})();
+</script>
 </body>
 </html>
