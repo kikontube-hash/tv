@@ -64,6 +64,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .navArrows{display:flex;gap:6px;padding:8px 10px;border-top:1px solid rgba(255,255,255,.07);flex:0 0 auto;justify-content:center}
 .navBtn{width:48px;height:40px;border-radius:12px;border:1px solid #25344d;background:#131c2b;color:#f5a524;font-size:18px;font-weight:900;display:grid;place-items:center;transition:all .15s}
 .navBtn:hover,.navBtn:focus{background:rgba(245,165,36,.2);border-color:#f5a524}
+.navBtn:active{background:rgba(245,165,36,.4);transform:scale(.95)}
 
 /* VIDEO PLAYER */
 .videoBox{position:relative;background:#000;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.09);box-shadow:var(--shadow);height:42vh;min-height:235px;max-height:52vh;flex:0 0 auto}
@@ -72,6 +73,31 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .empty h2{margin:0 0 8px;font-size:24px}.empty p{margin:0;color:#91a1ba;font-size:13px}
 .live{position:absolute;top:12px;right:12px;background:rgba(220,38,38,.92);border-radius:99px;padding:5px 10px;font-size:11px;font-weight:900}
 .playerOverlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.7);color:#fff;font-size:20px;font-weight:700;z-index:5;pointer-events:none}
+
+/* Video navigation buttons - transparent overlay */
+.videoNavBtn{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:80px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);font-size:20px;font-weight:900;border-radius:12px;opacity:0;transition:opacity .3s,background .2s;z-index:4;cursor:pointer;backdrop-filter:blur(4px)}
+.videoBox:hover .videoNavBtn,.videoNavBtn:focus{opacity:1}
+.videoNavBtn:hover{background:rgba(245,165,36,.4);border-color:#f5a524}
+.videoNavBtn:active{background:rgba(245,165,36,.6)}
+.videoNavPrev{left:10px}
+.videoNavNext{right:10px}
+/* Always show on touch devices */
+@media(hover:none){.videoNavBtn{opacity:.7}}
+/* In fullscreen, always visible and larger */
+.videoBox:fullscreen .videoNavBtn,.videoBox:-webkit-full-screen .videoNavBtn{opacity:.9;width:70px;height:100px;font-size:28px;border-radius:16px;background:rgba(0,0,0,.5)}
+.videoBox:fullscreen .videoNavBtn:hover,.videoBox:-webkit-full-screen .videoNavBtn:hover{background:rgba(245,165,36,.5)}
+/* Fullscreen channel info overlay */
+.fullscreenInfo{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);color:#fff;padding:12px 24px;border-radius:12px;font-size:16px;font-weight:700;opacity:0;transition:opacity .3s;z-index:6;pointer-events:none;text-align:center;backdrop-filter:blur(8px)}
+.fullscreenInfo.show{opacity:1}
+.fullscreenInfo .fsChannelName{color:#f5a524;font-size:18px}
+.fullscreenInfo .fsGroupName{color:#91a1ba;font-size:13px;margin-top:4px}
+
+/* Scan progress bar - sticky at top */
+.scan{padding:12px;display:none;flex:0 0 auto;position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(16,24,39,.99),rgba(11,17,28,.98))}
+.scan.show{display:block}
+.scanProgress{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.scanProgress b{flex:1;font-size:13px}
+.scanProgress .scanCount{font-size:12px;color:#f5a524;font-weight:700}
 .infoBar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;flex:0 0 auto}
 .now{display:flex;align-items:center;gap:10px;min-width:0}
 .nowTitle{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -102,6 +128,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .dialogBody{padding:16px}
 .dialogFoot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:8px;justify-content:flex-end}
 .textarea{width:100%;min-height:140px;border:1px solid #25344d;background:#070b12;color:#eef4ff;border-radius:12px;padding:12px;resize:vertical;font-family:monospace;font-size:12px}
+
 /* TOAST */
 .toast{position:fixed;bottom:16px;right:16px;display:flex;flex-direction:column;gap:8px;z-index:300;pointer-events:none}
 .toast>div{background:#101827;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 16px;color:#eef4ff;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:toastIn .3s ease}
@@ -162,15 +189,19 @@ body.tv-mode .stat span{font-size:13px}
   .empty h2{font-size:18px}.empty p{font-size:11px}
   .infoBar{display:block;padding:9px}
   .controls{justify-content:stretch;margin-top:8px}.controls .btn{flex:1;font-size:11px;padding:8px 6px}
-  .screenSettings{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px}
-  .stats{grid-template-columns:repeat(3,1fr);gap:5px}
-  .stat{padding:7px}.stat b{font-size:15px}.stat span{font-size:9px}
+  /* Hide settings, stats, scan on mobile - save space for channels */
+  .screenSettings{display:none!important}
+  .stats{display:none!important}
+  .scan{display:none!important}
   .sideHead{padding:9px}.list{padding:8px}.chan{min-height:50px}
   .chanName,.chanMeta{max-width:calc(100vw - 128px)}
-  .toast{bottom:8px;right:8px}
-  .mobileNav{display:flex;gap:6px;padding:8px;background:rgba(7,11,18,.95);border-top:1px solid rgba(255,255,255,.07)}
-  .mobileNav .btn{flex:1;font-size:12px;padding:10px 8px}
-  .stats .stat:nth-child(4),.stats .stat:nth-child(5){display:none}
+  .toast{bottom:60px;right:8px}
+  .mobileNav{display:flex;gap:6px;padding:8px;background:rgba(7,11,18,.95);border-top:1px solid rgba(255,255,255,.07);position:fixed;bottom:0;left:0;right:0;z-index:60}
+  .mobileNav .btn{flex:1;font-size:11px;padding:10px 6px;min-height:42px}
+  /* Adjust main to account for fixed bottom nav */
+  .main{padding-bottom:60px}
+  /* Video nav buttons visible on mobile */
+  .videoNavBtn{width:44px;height:70px;font-size:18px;opacity:.6}
 }
 @media(max-width:420px){.videoBox{height:21vh;min-height:125px}.screenSettings{grid-template-columns:1fr 1fr}.stats{display:none}.top{gap:6px}.brand{gap:7px}.actions{gap:5px}.btn{padding:7px 9px}.chanName,.chanMeta{max-width:calc(100vw - 118px)}}
 @media(max-height:650px) and (max-width:900px){.videoBox{height:125px;min-height:118px}.screenSettings{display:none}.stats{display:none}.groupDrop{padding:6px}.dropList .cat{min-height:32px;padding:6px 9px}.infoBar{padding:7px}.right{min-height:130px}}
@@ -220,6 +251,14 @@ body.tv-mode .stat span{font-size:13px}
         <div class="empty" id="empty"><div><h2>اختر قناة للتشغيل</h2><p>استخدم الأسهم للتنقل بين الباقات والقنوات. Enter للتشغيل. Backspace للرجوع.</p></div></div>
         <div class="live hidden" id="liveBadge">LIVE</div>
         <div class="playerOverlay hidden" id="playerOverlay"><span id="overlayText"></span></div>
+        <!-- Navigation buttons inside video -->
+        <button class="videoNavBtn videoNavPrev" id="videoPrevBtn" title="القناة السابقة">◀</button>
+        <button class="videoNavBtn videoNavNext" id="videoNextBtn" title="القناة التالية">▶</button>
+        <!-- Fullscreen channel info -->
+        <div class="fullscreenInfo" id="fullscreenInfo">
+          <div class="fsChannelName" id="fsChannelName"></div>
+          <div class="fsGroupName" id="fsGroupName"></div>
+        </div>
       </div>
       <div class="panel infoBar">
         <div class="now">
@@ -230,9 +269,7 @@ body.tv-mode .stat span{font-size:13px}
           </div>
         </div>
         <div class="controls">
-          <button class="btn" id="prevChBtn" title="القناة السابقة">⏮</button>
           <button class="btn ok" id="playBtn">▶ تشغيل</button>
-          <button class="btn" id="nextChBtn" title="القناة التالية">⏭</button>
           <button class="btn" id="stopBtn">⏹ إيقاف</button>
           <button class="btn" id="favBtn">⭐ مفضلة</button>
           <button class="btn" id="fullBtn">⛶ ملء الشاشة</button>
@@ -253,15 +290,18 @@ body.tv-mode .stat span{font-size:13px}
         <div class="stat"><b id="stHidden">0</b><span>مخفية</span></div>
       </div>
       <div class="panel scan" id="scanBox">
-        <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px">
-          <b id="scanText">جاري الفحص...</b>
-          <div style="display:flex;gap:6px">
-            <button class="btn ok" id="autoRemoveBtn">حذف المعطوب تلقائياً</button>
-            <button class="btn danger" id="cancelScan">إيقاف</button>
-          </div>
+        <div class="scanProgress">
+          <b id="scanText">🔍 جاري الفحص...</b>
+          <span class="scanCount" id="scanCount">0/0</span>
         </div>
         <div class="bar"><i id="scanBar"></i></div>
-        <div class="hint" id="scanMeta"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px">
+          <div class="hint" id="scanMeta" style="padding:0;flex:1"></div>
+          <div style="display:flex;gap:6px;flex-shrink:0">
+            <button class="btn ok" id="autoRemoveBtn" style="display:none">🗑 حذف المعطوب</button>
+            <button class="btn danger" id="cancelScan">⏹ إيقاف</button>
+          </div>
+        </div>
       </div>
     </section>
     <!-- RIGHT: Channels Panel -->
@@ -269,25 +309,24 @@ body.tv-mode .stat span{font-size:13px}
       <div class="sideHead"><b>📺 القنوات</b><button class="btn ghost hidden" data-close>إغلاق</button></div>
       <div style="padding:10px;display:grid;gap:8px">
         <input id="search" class="search" placeholder="بحث عن قناة أو رابط...">
-        <select id="sort" class="search">
-          <option value="default">الترتيب الأصلي</option>
-          <option value="az">أبجدي</option>
-          <option value="online">العاملة أولاً</option>
         </select>
       </div>
       <div class="list" id="channels"></div>
       <div style="padding:10px;display:grid;gap:6px">
         <button class="btn" id="moreBtn" style="width:100%">عرض المزيد</button>
-        <button class="btn" id="prevChanBtn" style="width:100%">▲ القناة السابقة</button>
-        <button class="btn" id="nextChanBtn" style="width:100%">▼ القناة التالية</button>
+      </div>
+      <div class="navArrows" id="chanNav">
+        <button class="navBtn" id="prevChanBtn" title="القناة السابقة">▲</button>
+        <button class="navBtn" id="nextChanBtn" title="القناة التالية">▼</button>
       </div>
     </aside>
   </main>
   <nav class="mobileNav">
-    <button class="btn" id="mobGroups">📦 الباقات</button>
-    <button class="btn" id="mobChannels">📺 القنوات</button>
+    <button class="btn" id="mobGroups">📦 باقات</button>
+    <button class="btn" id="mobChannels">📺 قنوات</button>
     <button class="btn" id="mobScan">🔍 فحص</button>
-    <button class="btn ok" id="mobExport">✅ العاملة</button>
+    <button class="btn ok" id="mobExport">✅ تصدير</button>
+    <button class="btn" id="mobSettings">⚙️ إعدادات</button>
   </nav>
 </div>
 <!-- Import Modal -->
@@ -300,7 +339,7 @@ body.tv-mode .stat span{font-size:13px}
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <label class="btn" style="cursor:pointer">
           📁 اختيار ملف M3U/TXT
-          <input type="file" id="fileImport" accept=".m3u,.m3u8,.txt,.json" style="display:none">
+          <input type="file" id="fileImport" accept=".m3u,.m3u8,.txt,.json,.ts,.pls,.xspf,.asx,.wpl,video " style="display:none">
         </label>
         <button class="btn" id="importUrlBtn">🔗 استيراد من رابط URL</button>
       </div>
@@ -322,6 +361,20 @@ body.tv-mode .stat span{font-size:13px}
     <div class="pinError" id="pinError">❌ كلمة السر خاطئة</div>
   </div>
 </div>
+<!-- Settings Modal for Mobile -->
+<div class="modal" id="settingsModal">
+  <div class="dialog">
+    <div class="dialogHead"><b>⚙️ إعدادات الشاشة</b><button class="btn ghost" id="closeSettings">✕</button></div>
+    <div class="dialogBody">
+      <div style="display:grid;gap:12px">
+        <label>مقاس الشاشة<select id="ratioModeMobile" class="search"><option value="16/9">16:9 عريض</option><option value="4/3">4:3 قديم</option><option value="21/9">21:9 سينما</option><option value="1/1">مربع</option></select></label>
+        <label>طريقة الملاءمة<select id="fitModeMobile" class="search"><option value="contain">بدون قص</option><option value="cover">ملء مع قص</option><option value="fill">تمديد كامل</option></select></label>
+        <label>سطوع الصورة<input id="brightnessMobile" class="search" type="range" min="70" max="130" value="100"></label>
+        <button class="btn" id="resetScreenMobile">إعادة الضبط</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 <script>
 (function(){
@@ -340,7 +393,7 @@ var STORE = 'kikon_pro_channels_v3';
 var STORE_SCAN = 'kikon_pro_autoscan_v2';
 var STORE_EXTRA = 'kikon_pro_extra_v1';
 var SCREEN_STORE = 'kikon_pro_screen_v2';
-var PRIVATE_GROUP = '🌿 وثائقي هه';
+var PRIVATE_GROUP = '💲 Secret ';
 
 /* ===== STATE ===== */
 var state = {
@@ -363,7 +416,8 @@ var state = {
   device: 'pc',
   focusZone: 'channels',
   focusIndex: 0,
-  scanBroken: []
+  scanBroken: [],
+  fsInfoTimer: null
 };
 
 /* ===== DEVICE DETECTION ===== */
@@ -401,7 +455,23 @@ function idFor(url){var h=0,i;for(i=0;i<url.length;i++){h=((h<<5)-h)+url.charCod
 function lower(s){return String(s||'').toLowerCase()}
 function isPrivate(name,group,url){var t=lower(name+' '+group+' '+url);return group==='XXX'||t.indexOf('adultiptv')>-1||t.indexOf('mycamtv')>-1||t.indexOf('jasmin')>-1||t.indexOf('babestation')>-1||t.indexOf('xpanded')>-1||t.indexOf('redtraffic')>-1||t.indexOf('porn')>-1||t.indexOf('xxx')>-1}
 function typeOf(url,name,group){var t=lower(url+' '+name+' '+group);if(t.indexOf('.mp4')>-1||t.indexOf('.mkv')>-1||t.indexOf('.avi')>-1||t.indexOf('.webm')>-1||t.indexOf('movie')>-1)return 'vod';if(t.indexOf('.mpd')>-1)return 'dash';if(t.indexOf('series')>-1||t.indexOf('مسلسل')>-1)return 'series';return 'live'}
-function cleanGroup(name,group,url){if(isPrivate(name,group,url))return PRIVATE_GROUP;if(!group||group==='General')return '🌐 باقة عامة';if(group==='News')return '📰 أخبار';if(group==='Entertainment')return '🎭 ترفيه';if(group==='Business')return '💼 اقتصاد';if(group==='Movies')return '🎬 أفلام وسينما';if(group.indexOf('Sports')>-1)return '⚽ رياضة ومباريات';if(group.indexOf('Documentary')>-1)return '🌿 وثائقيات وثقافة';return group}
+function cleanGroup(name,group,url){
+  if(isPrivate(name,group,url))return PRIVATE_GROUP;
+  // Skip religious channels
+  if(group==='Religious'||lower(name).indexOf('religious')>-1||lower(name).indexOf('church')>-1||lower(name).indexOf('islam')>-1)return null;
+  if(!group||group==='General')return '🌐 باقة عامة';
+  if(group==='News')return '📰 أخبار';
+  if(group==='Entertainment')return '🎭 ترفيه';
+  if(group==='Business')return '💼 اقتصاد';
+  if(group==='Movies'||group.indexOf('Movies')>-1)return '🎬 أفلام وسينما';
+  if(group.indexOf('Sports')>-1)return '⚽ رياضة ومباريات';
+  if(group.indexOf('Documentary')>-1||group.indexOf('Culture')>-1)return '🌿 وثائقيات وثقافة';
+  if(group.indexOf('Series')>-1||group.indexOf('مسلسل')>-1)return '📺 مسلسلات ودراما';
+  if(group.indexOf('العالم العربي')>-1)return '🌍 العالم العربي';
+  if(group.indexOf('أمريكا')>-1||group.indexOf('بريطانيا')>-1)return '🇺🇸 أمريكا وبريطانيا';
+  if(group.indexOf('Education')>-1||group.indexOf('Culture')>-1)return '📚 تعليم وثقافة';
+  return group;
+}
 function attrs(line){var out={},m,re=/([\w-]+)="([^"]*)"/g;while((m=re.exec(line)))out[m[1]]=m[2];return out}
 
 /* ===== M3U PARSER ===== */
@@ -422,7 +492,10 @@ function parseM3U(text){
       url=line;
       if(!info)info={name:'بث مباشر',group:'',logo:''};
       priv=isPrivate(info.name,info.group,url);
-      out.push({id:idFor(url),name:info.name,url:url,logo:info.logo||'',group:cleanGroup(info.name,info.group,url),type:typeOf(url,info.name,info.group),favorite:false,status:'unknown',private:priv});
+      var cleanGrp=cleanGroup(info.name,info.group,url);
+      if(cleanGrp!==null){
+        out.push({id:idFor(url),name:info.name,url:url,logo:info.logo||'',group:cleanGrp,type:typeOf(url,info.name,info.group),favorite:false,status:'unknown',private:priv});
+      }
       info=null;
     }
   }
@@ -435,7 +508,9 @@ function merge(){
   for(i=0;i<arguments.length;i++){
     (arguments[i]||[]).forEach(function(x){
       if(!x||!x.url)return;
-      var y={id:x.id||idFor(x.url),name:x.name||'قناة',url:x.url,logo:x.logo||'',group:cleanGroup(x.name,x.group,x.url),type:x.type||typeOf(x.url,x.name,x.group),favorite:!!x.favorite,status:x.status||'unknown',private:!!x.private||isPrivate(x.name,x.group,x.url)};
+      var cleanGrp=cleanGroup(x.name,x.group,x.url);
+      if(cleanGrp===null)return; // Skip religious
+      var y={id:x.id||idFor(x.url),name:x.name||'قناة',url:x.url,logo:x.logo||'',group:cleanGrp,type:x.type||typeOf(x.url,x.name,x.group),favorite:!!x.favorite,status:x.status||'unknown',private:!!x.private||isPrivate(x.name,x.group,x.url)};
       if(!map[y.url]){map[y.url]=y;res.push(y)}
       else{map[y.url].favorite=map[y.url].favorite||y.favorite;map[y.url].status=map[y.url].status==='online'?'online':y.status}
     });
@@ -584,6 +659,7 @@ function showOverlay(text){
 function hideOverlay(){
   $('playerOverlay').className='playerOverlay hidden';
 }
+
 function play(c){
   if(!c)c=state.active;
   if(!c)return;
@@ -734,25 +810,58 @@ function startScan(auto){
   if(!list.length){toast('لا توجد قنوات تحتاج الفحص','ok');return}
   state.scanning=true;state.cancelScan=false;state.scanBroken=[];
   $('scanBox').className='panel scan show';
+  $('autoRemoveBtn').style.display='none';
+  $('cancelScan').style.display='';
+  
   var i=0,ok=0,bad=0,total=list.length;
+  var lastRender=0;
+  
+  function updateUI(){
+    $('scanText').textContent='🔍 جاري الفحص...';
+    $('scanCount').textContent=i+'/'+total;
+    $('scanMeta').textContent='✅ '+ok+' يعمل | ❌ '+bad+' معطوب';
+    $('scanBar').style.width=Math.round((i/total)*100)+'%';
+  }
+  
   function step(){
     if(state.cancelScan||i>=total){
-      state.scanning=false;save();render();
-      $('scanText').textContent=state.cancelScan?'تم إيقاف الفحص':'✅ اكتمل الفحص';
-      toast('نتيجة الفحص: يعمل '+ok+' / معطوب '+bad,(bad?'':'ok'));
+      state.scanning=false;
+      save();
+      $('scanText').textContent=state.cancelScan?'⏸ تم إيقاف الفحص':'✅ اكتمل الفحص';
+      $('scanCount').textContent=total+'/'+total;
+      $('scanMeta').textContent='النتيجة: '+ok+' يعمل | '+bad+' معطوب';
+      $('scanBar').style.width='100%';
+      $('cancelScan').style.display='none';
+      if(bad>0)$('autoRemoveBtn').style.display='';
+      render();
+      toast('نتيجة الفحص: '+ok+' يعمل / '+bad+' معطوب',(bad?'':'ok'));
       return;
     }
-    var c=list[i++];
-    $('scanText').textContent='🔍 فحص الروابط وحذف المعطوب — '+i+'/'+total;
-    $('scanMeta').textContent='يعمل: '+ok+' | معطوب: '+bad+' | المتبقي: '+(total-i);
-    $('scanBar').style.width=Math.round((i/total)*100)+'%';
-    probe(c.url).then(function(alive){
-      if(alive){ok++;mark(c.url,'online',false)}
-      else{bad++;state.scanBroken.push(c);mark(c.url,'offline',false)}
-      setTimeout(step,80);
+    
+    // Process multiple channels in batch for speed
+    var batchSize=3;
+    var promises=[];
+    for(var b=0;b<batchSize&&i<total;b++){
+      var c=list[i++];
+      promises.push(probe(c.url).then(function(alive){
+        if(alive){ok++;this.status='online'}
+        else{bad++;state.scanBroken.push(this);this.status='offline'}
+      }.bind(c)));
+    }
+    
+    Promise.all(promises).then(function(){
+      // Update UI less frequently to avoid lag
+      var now=Date.now();
+      if(now-lastRender>300){
+        updateUI();
+        lastRender=now;
+      }
+      setTimeout(step,50);
     });
   }
-  toast(auto?'بدأ الفحص التلقائي الهادئ':'بدأ الفحص الشامل');
+  
+  updateUI();
+  toast(auto?'بدأ الفحص التلقائي':'بدأ الفحص الشامل');
   step();
 }
 
@@ -761,7 +870,7 @@ function autoRemoveBroken(){
   var count=state.scanBroken.length;
   state.scanBroken.forEach(function(c){removeUrl(c.url)});
   state.scanBroken=[];
-  toast('تم حذف '+count+' قناة معطوبة تلقائياً','ok');
+  toast('تم حذف '+count+' قناة معطوبة','ok');
   $('scanBox').className='panel scan';
 }
 
@@ -793,6 +902,7 @@ function importFromUrl(url){
     toast('تم استيراد '+(state.channels.length-before)+' قناة من الرابط','ok');
   }).catch(function(){toast('تعذر جلب الرابط. تأكد من صححته ومن السماح CORS.','bad')});
 }
+
 /* ===== PRIVATE TOGGLE ===== */
 function togglePrivate(){
   if(!state.private){
@@ -834,13 +944,22 @@ function applyScreen(saveIt){
   v.style.objectFit=fit;
   v.style.filter='brightness('+bright+'%)';
   w.style.aspectRatio=ratio;
+  // Sync mobile settings
+  if($('fitModeMobile'))$('fitModeMobile').value=fit;
+  if($('ratioModeMobile'))$('ratioModeMobile').value=ratio;
+  if($('brightnessMobile'))$('brightnessMobile').value=bright;
   if(saveIt!==false){try{localStorage.setItem(SCREEN_STORE,JSON.stringify({fit:fit,ratio:ratio,bright:bright}))}catch(e){}}
 }
 function loadScreen(){
   try{var x=JSON.parse(localStorage.getItem(SCREEN_STORE)||'{}');
   if(x.fit&&$('fitMode'))$('fitMode').value=x.fit;
   if(x.ratio&&$('ratioMode'))$('ratioMode').value=x.ratio;
-  if(x.bright&&$('brightness'))$('brightness').value=x.bright}catch(e){}
+  if(x.bright&&$('brightness'))$('brightness').value=x.bright;
+  // Sync mobile settings
+  if(x.fit&&$('fitModeMobile'))$('fitModeMobile').value=x.fit;
+  if(x.ratio&&$('ratioModeMobile'))$('ratioModeMobile').value=x.ratio;
+  if(x.bright&&$('brightnessMobile'))$('brightnessMobile').value=x.bright;
+  }catch(e){}
   applyScreen(false);
 }
 function fullscreenPlayer(){
@@ -896,23 +1015,61 @@ function navigateChannel(direction){
   var chanList=$('channels');
   var activeBtn=chanList.querySelector('.chan.active');
   if(activeBtn){activeBtn.scrollIntoView({block:'nearest',behavior:'smooth'})}
+  // Show fullscreen info overlay
+  showFullscreenInfo(arr[newIdx]);
 }
+
+function showFullscreenInfo(channel){
+  var isFullscreen=document.fullscreenElement||document.webkitFullscreenElement;
+  if(!isFullscreen||!channel)return;
+  var info=$('fullscreenInfo');
+  $('fsChannelName').textContent=channel.name;
+  $('fsGroupName').textContent=channel.group;
+  info.className='fullscreenInfo show';
+  clearTimeout(state.fsInfoTimer);
+  state.fsInfoTimer=setTimeout(function(){info.className='fullscreenInfo'},2500);
+}
+
 /* ===== KEYBOARD / REMOTE CONTROL ===== */
 function handleKey(e){
   var key=e.key||e.keyCode;
   var keyCode=typeof key==='string'?key:String(key);
+  var isFullscreen=document.fullscreenElement||document.webkitFullscreenElement;
 
-  // Escape / Backspace - go back
-  if(keyCode==='Escape'||keyCode==='Backspace'||keyCode==='Back'||keyCode===8){
+  // Escape / Backspace / Browser Back - go back
+  if(keyCode==='Escape'||keyCode==='Backspace'||keyCode==='Back'||keyCode===8||keyCode==='GoBack'){
+    if($('pinModal').className.indexOf('show')>-1){$('pinModal').className='pinModal';$('pinInput').value='';e.preventDefault();return}
     if($('modal').className.indexOf('show')>-1){$('modal').className='modal';e.preventDefault();return}
     if(document.body.classList.contains('show-channels')){closeChannelsPanel();e.preventDefault();return}
-    if(document.fullscreenElement){document.exitFullscreen();e.preventDefault();return}
+    if(isFullscreen){if(document.exitFullscreen)document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();e.preventDefault();return}
   }
 
   // Don't interfere with input fields
   var tag=document.activeElement?document.activeElement.tagName:'';
   if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
 
+  // In fullscreen: ALL arrows = channel navigation (for TV remote)
+  if(isFullscreen){
+    switch(keyCode){
+      case 'ArrowLeft':case 'Left':case 37:
+      case 'ArrowUp':case 'Up':case 38:
+        e.preventDefault();
+        navigateChannel('prev');
+        return;
+      case 'ArrowRight':case 'Right':case 39:
+      case 'ArrowDown':case 'Down':case 40:
+        e.preventDefault();
+        navigateChannel('next');
+        return;
+      case 'Enter':case 'Select':case 'Return':case 13:
+        e.preventDefault();
+        var v=$('video');
+        if(v.paused)v.play().catch(function(){});else v.pause();
+        return;
+    }
+  }
+
+  // Normal mode: arrows for navigation
   switch(keyCode){
     case 'ArrowUp':
     case 'Up':
@@ -940,6 +1097,7 @@ function handleKey(e){
       break;
     case 'Enter':
     case 'Select':
+    case 'Return':
     case 13:
       e.preventDefault();
       if(!state.active){
@@ -1018,8 +1176,6 @@ function bind(){
   // Player controls
   $('playBtn').onclick=function(){play()};
   $('stopBtn').onclick=stopPlayer;
-  $('prevChBtn').onclick=function(){navigateChannel('prev')};
-  $('nextChBtn').onclick=function(){navigateChannel('next')};
   $('favBtn').onclick=function(){
     if(!state.active)return;
     state.active.favorite=!state.active.favorite;
@@ -1028,6 +1184,10 @@ function bind(){
   };
   $('delBtn').onclick=function(){if(state.active&&confirm('حذف هذه القناة؟'))removeUrl(state.active.url)};
   $('fullBtn').onclick=fullscreenPlayer;
+  
+  // Video overlay navigation buttons
+  $('videoPrevBtn').onclick=function(){navigateChannel('prev')};
+  $('videoNextBtn').onclick=function(){navigateChannel('next')};
 
   // Group navigation
   $('groupPrev').onclick=function(){navigateGroup('prev')};
@@ -1106,6 +1266,7 @@ function bind(){
     $('ratioMode').value='16/9';$('fitMode').value='contain';$('brightness').value=100;
     applyScreen();toast('تم إعادة ضبط إعدادات الشاشة','ok');
   };
+
   // Mobile nav
   $('mobGroups').onclick=function(){
     var p=$('catPanel');
@@ -1120,6 +1281,24 @@ function bind(){
   };
   $('mobScan').onclick=function(){startScan(false)};
   $('mobExport').onclick=function(){exportWorking()};
+  $('mobSettings').onclick=function(){$('settingsModal').className='modal show'};
+  
+  // Mobile settings modal
+  $('closeSettings').onclick=function(){$('settingsModal').className='modal'};
+  $('ratioModeMobile').onchange=function(){
+    $('ratioMode').value=this.value;applyScreen();
+  };
+  $('fitModeMobile').onchange=function(){
+    $('fitMode').value=this.value;applyScreen();
+  };
+  $('brightnessMobile').oninput=function(){
+    $('brightness').value=this.value;applyScreen();
+  };
+  $('resetScreenMobile').onclick=function(){
+    $('ratioModeMobile').value='16/9';$('fitModeMobile').value='contain';$('brightnessMobile').value=100;
+    $('ratioMode').value='16/9';$('fitMode').value='contain';$('brightness').value=100;
+    applyScreen();toast('تم إعادة ضبط إعدادات الشاشة','ok');
+  };
   
   // Mobile group title click - open groups panel
   $('currentGroupLabel').onclick=function(){
@@ -1147,6 +1326,5 @@ loadScreen();
 
 })();
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
