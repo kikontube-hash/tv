@@ -309,6 +309,10 @@ body.tv-mode .stat span{font-size:13px}
       <div class="sideHead"><b>📺 القنوات</b><button class="btn ghost hidden" data-close>إغلاق</button></div>
       <div style="padding:10px;display:grid;gap:8px">
         <input id="search" class="search" placeholder="بحث عن قناة أو رابط...">
+        <select id="sort" class="search">
+          <option value="default">الترتيب الأصلي</option>
+          <option value="az">أبجدي</option>
+          <option value="online">العاملة أولاً</option>
         </select>
       </div>
       <div class="list" id="channels"></div>
@@ -339,7 +343,7 @@ body.tv-mode .stat span{font-size:13px}
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <label class="btn" style="cursor:pointer">
           📁 اختيار ملف M3U/TXT
-          <input type="file" id="fileImport" accept=".m3u,.m3u8,.txt,.json,.ts,.pls,.xspf,.asx,.wpl,video " style="display:none">
+          <input type="file" id="fileImport" accept=".m3u,.m3u8,.txt,.json" style="display:none">
         </label>
         <button class="btn" id="importUrlBtn">🔗 استيراد من رابط URL</button>
       </div>
@@ -393,7 +397,7 @@ var STORE = 'kikon_pro_channels_v3';
 var STORE_SCAN = 'kikon_pro_autoscan_v2';
 var STORE_EXTRA = 'kikon_pro_extra_v1';
 var SCREEN_STORE = 'kikon_pro_screen_v2';
-var PRIVATE_GROUP = '💲 Secret ';
+var PRIVATE_GROUP = '🌿 وثائقي هه';
 
 /* ===== STATE ===== */
 var state = {
@@ -1326,5 +1330,6 @@ loadScreen();
 
 })();
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
